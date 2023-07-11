@@ -47,4 +47,11 @@ public class ViewController {
 		return "redirect:/login?logout";
 	}
 	
+	
+	@GetMapping(value = { "/pendingInvoice"})
+	public String getPendingInvoicePage() {
+		return "invoice/pendingInvoice";
+	}
+	
+	
 }
