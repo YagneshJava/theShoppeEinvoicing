@@ -30,6 +30,11 @@ public class EinvoiceRepoImpl implements EinvoiceRepo{
 	public Page<?> getPendingInvoiceList(String searchQuery, Pageable pageable) throws SQLException {
 		try {
 			
+//			String subQry = "";
+//			if (!searchQuery.trim().equals("")) {
+//				subQry += " and name like '" + searchQuery + "%'";
+//			}
+			
 			List<SalesInvoiceModel> pendingEinvoiceList = template.query(env.getProperty("getEinvoicePendingList")+" OFFSET "+ pageable.getOffset() +" ROWS "+" FETCH NEXT "+ pageable.getPageSize() +" ROWS ONLY ",
 	                BeanPropertyRowMapper.newInstance(SalesInvoiceModel.class));
 			return new PageImpl<SalesInvoiceModel>(pendingEinvoiceList, pageable,
