@@ -12,16 +12,16 @@ public class EInvoicingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EInvoicingApplication.class, args);
 	}
-//	
-//	static {
-//		String logPath = "";
-//		if (System.getProperty("os.name").equalsIgnoreCase("Linux")) {
-//			logPath = "/tmp/eInvoicing_logs/";
-//		} else {
-//			logPath = "D:\\\\eInvoicing_logs\\\\";
-//		}
-//		System.setProperty("logPath", logPath);
-//	}
+	
+	static {
+		String logPath = "";
+		if (System.getProperty("os.name").equalsIgnoreCase("Linux")) {
+			logPath = "/tmp/eInvoicing_logs/";
+		} else {
+			logPath = "D:\\\\eInvoicing_logs\\\\";
+		}
+		System.setProperty("logPath", logPath);
+	}
 
 	
 	@Bean(name = "sessionRegistry")
