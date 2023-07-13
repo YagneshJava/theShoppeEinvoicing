@@ -27,7 +27,7 @@ function getPendingInvoiceList() {
 			{ title: 'Id', data: 'salesInvoiceId' },
 			{ title: 'Invoice No', data: 'salesInvoiceNo' },
 			{ title: 'Invoice Date', data: 'salesInvoiceDate' },
-//			{ data: null, className: 'dt-center', render: potentialConnectionFormatter },
+			{ data: null, className: 'dt-center', render: jsonPrepareFormatter },
 		],
 		fixedColumns: {
 			rightColumns: 1,
@@ -41,6 +41,13 @@ function getPendingInvoiceList() {
 }
 
 
-function potentialConnectionFormatter(cellvalue, options, rowObject) {
-	return "<a onclick='addUpdateConnection(\"" + rowObject.userId + "\",\"" + rowObject.userType + "\", 4, 4);' title='Block' href='javascript:void(0)'class='btn btn-sm btn-light-danger btn-hover-light-danger btn-icon mr-2 my-1 my-lg-0' > <i class='icon-md fas fa-user-lock'></i></a>" + "<a onclick='addUpdateConnection(\"" + rowObject.userId + "\",\"" + rowObject.userType + "\", 2, 3);' title='Add' href='javascript:void(0)'class='btn btn-sm btn-light-success btn-hover-light-success btn-icon mr-2 my-1 my-lg-0' > <i class='icon-md fas fa-user-plus'></i></a>";
+function jsonPrepareFormatter(cellvalue, options, rowObject) {
+	return "<a onclick='downloadJsonByInvoice(\"" + rowObject.salesInvoiceId + "\",\"" + rowObject.salesInvoiceNo + "\");' title='JSON Prepare' href='javascript:void(0)' class='btn btn-sm btn-light-info btn-hover-light-info btn-icon mr-2 my-1 my-lg-0' > <i class='fa fa-download'></i></a>";
+}
+
+function downloadJsonByInvoice(salesInvoiceId,salesInvoiceNo){
+	var link = document.createElement('a');
+	link.href = "getPrepareJsonFileInvoice?salesInvoiceId="+salesInvoiceId+"&salesInvoiceNo="+salesInvoiceNo;
+	document.body.appendChild(link);
+	link.click();
 }

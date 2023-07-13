@@ -1,7 +1,13 @@
 package com.eInvoice.controller;
 
+import java.io.ByteArrayInputStream;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +27,7 @@ public class EinvoiceController {
 	
 	@GetMapping("/getPendingInvoiceList")
 	@ResponseBody
-	public DataTableDTO getPotentialConnetionList(Integer start, Integer length, Integer draw, @RequestParam(name = "search[value]", required = false, defaultValue = "") String searchQuery){
+	public DataTableDTO getPendingInvoiceList(Integer start, Integer length, Integer draw, @RequestParam(name = "search[value]", required = false, defaultValue = "") String searchQuery){
 		
 		try {
 			
@@ -35,6 +41,27 @@ public class EinvoiceController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@GetMapping("/getPrepareJsonFileInvoice")
+	@ResponseBody
+	public ResponseEntity<?> getPrepareJsonFileInvoice(@RequestParam(name = "salesInvoiceId", required = true) String invoiceId,@RequestParam(name = "salesInvoiceNo", required = true) String invoiceNo){
+		try {
+			
+			byte[] buf = eInvoiceservice.getPrepareJsonFileInvoice(invoiceId);
+
+			return ResponseEntity
+			        .ok()
+			        .contentLength(buf.length)
+			        .contentType(
+			                MediaType.parseMediaType("application/octet-stream"))
+			        .header("Content-Disposition", "attachment; filename="+invoiceNo+".json")
+			        .body(new InputStreamResource(new ByteArrayInputStream(buf)));
+		} catch (Exception e) {
+			log.error("Exception Occured in getPendingInvoiceList : ", e);
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	
