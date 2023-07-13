@@ -1,60 +1,281 @@
 package com.eInvoice.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE, creatorVisibility=JsonAutoDetect.Visibility.NONE)
 public class ItemList {
+
 	@JsonProperty("SlNo")
-	private String slNo;
+	private String SlNo;
 	@JsonProperty("PrdDesc")
-	private String prdDesc;
+	private String PrdDesc;
 	@JsonProperty("IsServc")
-	private String isServc;
+	private String IsServc;
 	@JsonProperty("HsnCd")
-	private String hsnCd;
+	private String HsnCd;
 	@JsonProperty("Barcde")
-	private String barcde;
+	private String Barcde;
 	@JsonProperty("Qty")
-	private int qty;
+	private int Qty;
 	@JsonProperty("FreeQty")
-	private int freeQty;
+	private int FreeQty;
 	@JsonProperty("Unit")
-	private String unit;
+	private String Unit;
 	@JsonProperty("UnitPrice")
-	private int unitPrice;
+	private int UnitPrice;
 	@JsonProperty("TotAmt")
-	private int totAmt;
+	private int TotAmt;
 	@JsonProperty("Discount")
-	private int discount;
+	private int Discount;
 	@JsonProperty("PreTaxVal")
-	private int preTaxVal;
+	private int PreTaxVal;
 	@JsonProperty("AssAmt")
-	private int assAmt;
+	private int AssAmt;
 	@JsonProperty("GstRt")
-	private int gstRt;
+	private int GstRt;
 	@JsonProperty("IgstAmt")
-	private int igstAmt;
+	private int IgstAmt;
 	@JsonProperty("CgstAmt")
-	private int cgstAmt;
+	private int CgstAmt;
 	@JsonProperty("SgstAmt")
-	private int sgstAmt;
+	private int SgstAmt;
 	@JsonProperty("CesRt")
-	private int cesRt;
+	private int CesRt;
 	@JsonProperty("CesAmt")
-	private int cesAmt;
+	private int CesAmt;
 	@JsonProperty("CesNonAdvlAmt")
-	private int cesNonAdvlAmt;
+	private int CesNonAdvlAmt;
 	@JsonProperty("StateCesRt")
-	private int stateCesRt;
+	private int StateCesRt;
 	@JsonProperty("StateCesAmt")
-	private int stateCesAmt;
+	private int StateCesAmt;
 	@JsonProperty("StateCesNonAdvlAmt")
-	private int stateCesNonAdvlAmt;
+	private int StateCesNonAdvlAmt;
 	@JsonProperty("OthChrg")
-	private int othChrg;
+	private int OthChrg;
 	@JsonProperty("TotItemVal")
-	private int totItemVal;
+	private int TotItemVal;
 	@JsonProperty("BchDtls")
-	private BchDtls bchDtls;
+	private BchDtls BchDtls;
 	@JsonProperty("AttribDtls")
-	private AttribDtls attribDtls;
+	private AttribDtls AttribDtls;
+
+	public String getSlNo() {
+		return SlNo;
+	}
+
+	public void setSlNo(String slNo) {
+		SlNo = slNo;
+	}
+
+	public String getPrdDesc() {
+		return PrdDesc;
+	}
+
+	public void setPrdDesc(String prdDesc) {
+		PrdDesc = prdDesc;
+	}
+
+	public String getIsServc() {
+		return IsServc;
+	}
+
+	public void setIsServc(String isServc) {
+		IsServc = isServc;
+	}
+
+	public String getHsnCd() {
+		return HsnCd;
+	}
+
+	public void setHsnCd(String hsnCd) {
+		HsnCd = hsnCd;
+	}
+
+	public String getBarcde() {
+		return Barcde;
+	}
+
+	public void setBarcde(String barcde) {
+		Barcde = barcde;
+	}
+
+	public int getQty() {
+		return Qty;
+	}
+
+	public void setQty(int qty) {
+		Qty = qty;
+	}
+
+	public int getFreeQty() {
+		return FreeQty;
+	}
+
+	public void setFreeQty(int freeQty) {
+		FreeQty = freeQty;
+	}
+
+	public String getUnit() {
+		return Unit;
+	}
+
+	public void setUnit(String unit) {
+		Unit = unit;
+	}
+
+	public int getUnitPrice() {
+		return UnitPrice;
+	}
+
+	public void setUnitPrice(int unitPrice) {
+		UnitPrice = unitPrice;
+	}
+
+	public int getTotAmt() {
+		return TotAmt;
+	}
+
+	public void setTotAmt(int totAmt) {
+		TotAmt = totAmt;
+	}
+
+	public int getDiscount() {
+		return Discount;
+	}
+
+	public void setDiscount(int discount) {
+		Discount = discount;
+	}
+
+	public int getPreTaxVal() {
+		return PreTaxVal;
+	}
+
+	public void setPreTaxVal(int preTaxVal) {
+		PreTaxVal = preTaxVal;
+	}
+
+	public int getAssAmt() {
+		return AssAmt;
+	}
+
+	public void setAssAmt(int assAmt) {
+		AssAmt = assAmt;
+	}
+
+	public int getGstRt() {
+		return GstRt;
+	}
+
+	public void setGstRt(int gstRt) {
+		GstRt = gstRt;
+	}
+
+	public int getIgstAmt() {
+		return IgstAmt;
+	}
+
+	public void setIgstAmt(int igstAmt) {
+		IgstAmt = igstAmt;
+	}
+
+	public int getCgstAmt() {
+		return CgstAmt;
+	}
+
+	public void setCgstAmt(int cgstAmt) {
+		CgstAmt = cgstAmt;
+	}
+
+	public int getSgstAmt() {
+		return SgstAmt;
+	}
+
+	public void setSgstAmt(int sgstAmt) {
+		SgstAmt = sgstAmt;
+	}
+
+	public int getCesRt() {
+		return CesRt;
+	}
+
+	public void setCesRt(int cesRt) {
+		CesRt = cesRt;
+	}
+
+	public int getCesAmt() {
+		return CesAmt;
+	}
+
+	public void setCesAmt(int cesAmt) {
+		CesAmt = cesAmt;
+	}
+
+	public int getCesNonAdvlAmt() {
+		return CesNonAdvlAmt;
+	}
+
+	public void setCesNonAdvlAmt(int cesNonAdvlAmt) {
+		CesNonAdvlAmt = cesNonAdvlAmt;
+	}
+
+	public int getStateCesRt() {
+		return StateCesRt;
+	}
+
+	public void setStateCesRt(int stateCesRt) {
+		StateCesRt = stateCesRt;
+	}
+
+	public int getStateCesAmt() {
+		return StateCesAmt;
+	}
+
+	public void setStateCesAmt(int stateCesAmt) {
+		StateCesAmt = stateCesAmt;
+	}
+
+	public int getStateCesNonAdvlAmt() {
+		return StateCesNonAdvlAmt;
+	}
+
+	public void setStateCesNonAdvlAmt(int stateCesNonAdvlAmt) {
+		StateCesNonAdvlAmt = stateCesNonAdvlAmt;
+	}
+
+	public int getOthChrg() {
+		return OthChrg;
+	}
+
+	public void setOthChrg(int othChrg) {
+		OthChrg = othChrg;
+	}
+
+	public int getTotItemVal() {
+		return TotItemVal;
+	}
+
+	public void setTotItemVal(int totItemVal) {
+		TotItemVal = totItemVal;
+	}
+
+	public BchDtls getBchDtls() {
+		return BchDtls;
+	}
+
+	public void setBchDtls(BchDtls bchDtls) {
+		BchDtls = bchDtls;
+	}
+
+	public AttribDtls getAttribDtls() {
+		return AttribDtls;
+	}
+
+	public void setAttribDtls(AttribDtls attribDtls) {
+		AttribDtls = attribDtls;
+	}
+
 }

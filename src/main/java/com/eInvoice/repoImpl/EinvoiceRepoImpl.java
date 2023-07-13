@@ -1,6 +1,7 @@
 package com.eInvoice.repoImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.eInvoice.models.ItemList;
 import com.eInvoice.models.SalesInvoiceModel;
 import com.eInvoice.repo.EinvoiceRepo;
 
@@ -33,6 +35,30 @@ public class EinvoiceRepoImpl implements EinvoiceRepo{
 	                BeanPropertyRowMapper.newInstance(SalesInvoiceModel.class));
 			return new PageImpl<SalesInvoiceModel>(pendingEinvoiceList, pageable,
 					template.queryForObject(env.getProperty("getEinvoicePendingListCount") , Integer.class));
+		} finally {
+			
+		}
+	}
+	
+	@Override
+	public Page<?> getPendingInvoiceItemList(String searchQuery, Pageable pageable) throws SQLException {
+		try {
+			List<ItemList> pendingEinvoiceList = template.query(env.getProperty("getPendingInvoiceItemList")+" OFFSET "+ pageable.getOffset() +" ROWS "+" FETCH NEXT "+ pageable.getPageSize() +" ROWS ONLY ",
+					BeanPropertyRowMapper.newInstance(ItemList.class));
+			return new PageImpl<ItemList>(pendingEinvoiceList, pageable,
+					template.queryForObject(env.getProperty("getPendingInvoiceItemListCount") , Integer.class));
+		} finally {
+			
+		}
+	}
+	
+	
+	@Override
+	public List<ItemList> getPendingInvoiceItemListForJson(String salesItemId) throws SQLException {
+		try {
+			List<ItemList> pendingEinvoiceList = template.query(env.getProperty("getPendingInvoiceItemList"),
+					BeanPropertyRowMapper.newInstance(ItemList.class),salesItemId);
+			return pendingEinvoiceList;
 		} finally {
 			
 		}
