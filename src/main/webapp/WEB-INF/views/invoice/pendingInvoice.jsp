@@ -48,13 +48,29 @@
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm ml-2"><i
                                 class="fas fa-download fa-sm text-white-50"></i>Prepare JSON</a>
                     </div> -->
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" id="pendingInvoiceDiv">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Pending Invoice</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="invoiceDataTable" width="100%" cellspacing="0">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow mb-4" id="pendingInvoiceLineDiv" style="display:none;">
+                        <div class="card-header py-3 d-sm-flex align-items-end justify-content-between mb-4">
+                            <h6 class="font-weight-bold  text-primary">Pending Invoice Details</h6>
+                            <div class="d-sm-inline-block">
+	                            <a href="#" target="_blank" id="downloadJSON" class="btn btn-primary ">Download</a>
+	         					<button type="button" class="btn btn-danger d-sm-inline-block" data-dismiss="modal" onclick="closeInvoiceDetailsDiv()">Close</button>
+         					</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="invoiceDetailDataTable" width="100%" cellspacing="0">
                                 </table>
                             </div>
                         </div>
@@ -83,7 +99,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Invoice Details</h5>
         <div>
-        <button type="button" class="btn btn-primary">Download</button>
+        <a href="#" target="_blank" id="downloadJSON" class="btn btn-primary">Download</a>
          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
 <!--         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
@@ -91,8 +107,7 @@
 <!--         </button> -->
       </div>
       <div class="modal-body">
-        <table class="table table-bordered" id="invoiceDetailDataTable" width="100%" cellspacing="0">
-                                </table>
+        
       </div>
     </div>
   </div>

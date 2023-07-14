@@ -4,23 +4,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SellerDtls {
 	@JsonProperty("Gstin")
-	private String gstin;
+	private String gstin = "24AABFT5812E1ZK";
 	@JsonProperty("LglNm")
-	private String lglNm;
+	private String lglNm = "THE SHOPPE";
 	@JsonProperty("TrdNm")
-	private String trdNm;
+	private String trdNm = "THE SHOPPE";
 	@JsonProperty("Addr1")
-	private String addr1;
+	private String addr1="DIVYA SIDDHI";
 	@JsonProperty("Addr2")
-	private String addr2;
+	private String addr2="NR NATUBHAI CIRCLE";
 	@JsonProperty("Loc")
-	private String loc;
+	private String loc="GOTRI, VADODARA";
 	@JsonProperty("Pin")
-	private int pin;
+	private int pin=390007;
 	@JsonProperty("Stcd")
-	private String stcd;
+	private String stcd="24";
 	@JsonProperty("Ph")
-	private String ph;
+	private String ph="6357776822";
 	@JsonProperty("Em")
-	private String em;
+	private String em="shoppebaroda@gmail.com";
 }

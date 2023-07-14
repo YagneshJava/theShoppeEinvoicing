@@ -9,16 +9,17 @@ $('document').ready(function() {
 	var table = $('#invoiceDataTable').DataTable();
 	table.on('click', 'tbody tr', function() {
 		var data = table.row(this).data();
-		//		alert('You clicked on ' + data.salesInvoiceId + "'s row");
-		//		getPendingInvoiceList();
-		//		$('#invoiceDataTable').DataTable().ajax.reload();
-		$('#invoiceDetailsModal').modal('show');
-		getPendingInvoiceDetails();
-
+		$('#pendingInvoiceDiv').hide();
+		$('#pendingInvoiceLineDiv').show();
+		getPendingInvoiceDetails(data.salesInvoiceId,data.salesInvoiceNo);
 	});
 
 });
 
+function closeInvoiceDetailsDiv(){
+	$('#pendingInvoiceDiv').show();
+	$('#pendingInvoiceLineDiv').hide();
+}
 function getPendingInvoiceList() {
 	$('#invoiceDataTable').DataTable({
 		ordering: false,
@@ -34,17 +35,14 @@ function getPendingInvoiceList() {
 		async: true,
 		//		lengthMenu: [5, 10, 25, 50],
 		ajax: {
-
 			url: 'getPendingInvoiceList',
-
-			// parameters for custom backend script demo
-			columnsDef: ['SalesInvoiceId', 'SalesInvoiceNo', 'SalesInvoiceDate'],
 		},
 		columns: [
-			{ title: 'Id', data: 'salesInvoiceId' },
 			{ title: 'Invoice No', data: 'salesInvoiceNo' },
+			{ title: 'Invoice Type', data: 'salesInvoiceType' },
 			{ title: 'Invoice Date', data: 'salesInvoiceDate' },
-			{ data: null, className: 'dt-center', render: jsonPrepareFormatter },
+			{ title: 'Customer Name', data: 'custFName' },
+			{ title: 'Invoice Amount', data: 'total' },
 		],
 		fixedColumns: {
 			rightColumns: 1,
@@ -64,17 +62,20 @@ function jsonPrepareFormatter(cellvalue, options, rowObject) {
 
 function downloadJsonByInvoice(salesInvoiceId, salesInvoiceNo) {
 	var link = document.createElement('a');
-	link.href = "getPrepareJsonFileInvoice?salesInvoiceId=" + salesInvoiceId + "&salesInvoiceNo=" + salesInvoiceNo;
+	
 	document.body.appendChild(link);
 	link.click();
 }
 
 
-function getPendingInvoiceDetails() {
+function getPendingInvoiceDetails(salesInvoiceId,salesInvoiceNo) {
+	var hrefLink = "getPrepareJsonFileInvoice?salesInvoiceId=" + salesInvoiceId + "&salesInvoiceNo=" + salesInvoiceNo;
+	$("#downloadJSON").attr("href",hrefLink);
+	
 	$('#invoiceDetailDataTable').DataTable({
 		ordering: false,
 		destroy: true,
-		searching: true,
+		searching: false,
 		scrollY: true,
 		scrollX: true,
 		scrollCollapse: true,
@@ -85,26 +86,34 @@ function getPendingInvoiceDetails() {
 		async: true,
 		lengthMenu: [5, 10, 25, 50],
 		ajax: {
-
-			url: 'getPendingInvoiceList',
-
-			// parameters for custom backend script demo
-			columnsDef: ['SalesInvoiceId', 'SalesInvoiceNo', 'SalesInvoiceDate'],
+			url: 'getPendingInvoiceItemList/'+salesInvoiceId,
 		},
 		columns: [
-			{ title: 'Id', data: 'salesInvoiceId' },
-			{ title: 'Invoice No', data: 'salesInvoiceNo' },
-			{ title: 'Invoice Date', data: 'salesInvoiceDate' },
-			{ data: null, className: 'dt-center', render: jsonPrepareFormatter },
+			{ title: 'Product Description', data: 'PrdDesc' },
+			{ title: 'Is Service', data: 'IsServc',render:formattorIsService },
+			{ title: 'HSN Code', data: 'HsnCd' },
+			{ title: 'Barcode', data: 'Barcde' },
+			{ title: 'Quantity', data: 'Qty' },
+			{ title: 'Free Quantity', data: 'FreeQty' },
+			{ title: 'Unit', data: 'Unit' },
+			{ title: 'Unit Price', data: 'UnitPrice' },
+			{ title: 'Total Amount', data: 'TotAmt' },
+			{ title: 'Discount', data: 'Discount' },
+			{ title: 'Assessable Amount', data: 'AssAmt' },
+			{ title: 'GST Rate', data: 'GstRt' },
+			{ title: 'Igst Amount', data: 'IgstAmt' },
+			{ title: 'Cgst Amount', data: 'CgstAmt' },
+			{ title: 'Sgst Amount', data: 'SgstAmt' },
+			{ title: 'Total Item Value', data: 'TotItemVal' },
 		],
-		fixedColumns: {
-			rightColumns: 1,
-			leftColumns: 0
-		}, createdRow: function(row, data, dataIndex) {
-			//			if (data.status == 'New')  {
-			//				$('td', row).addClass('dataTableColorClass');
-			//			}
-		}
 	});
+}
+
+function formattorIsService(cellvalue, options, rowObject){
+	if(rowObject.IsServc === "1"){
+		return "Y";
+	}else{
+		return "N";
+	}
 }
 

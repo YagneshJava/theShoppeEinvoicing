@@ -26,7 +26,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,Authentication authentication) throws IOException, ServletException {
-		System.out.println("manufacturerQuotationPage Role : "+authentication);
+		System.out.println("User Role : "+authentication);
 		String targetUrl = determineTargetUrl(authentication);
 	System.out.println("targetUrl : "+targetUrl);
 		redirectStrategy.sendRedirect(request, response, targetUrl);
@@ -59,27 +59,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 			roles.add(a.getAuthority());			
 		}
 		
-		if(isPending(roles)) {
-			url = "/welcomePendingPage";
-		}else if (isAdmin(roles)) {
-			url = "/userDashboard";
-		} else if (isCustomer(roles)) {
-			url = "/wellcomeCustomer";
-		} else if (isSupplier(roles)) {
-			url = "/wellcomeSupplier";
-		}else if (isDispensingVerify(roles)) {
-			url = "/wellcomeDispensingRegistration";
-//			url = "/dispensingDocRegistration";
-		}else if (isPharmacyVerify(roles)) {
-			url = "/wellcomePharmacyRegistration";
-		}else if (isWhoVerify(roles)) {
-			url = "/wellcomeCustomerRegistration";
-		}else if (isSupplierVerify(roles)) {
-			url = "/wellcomeSupplierRegistration";
-		}else if (isManufacturer(roles)) {
-			url = "/manufacturerWelcome";
-		}else if(isManufacturerVerify(roles)) {
-			url = "/welcomeManufacturerRegistration";
+		if (isAdmin(roles)) {
+			url = "/pendingInvoice";
 		} else{
 			url = "/Access_Denied";
 		}
@@ -91,68 +72,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 		}
 		return false;
 	}
-	private boolean isCustomer(List<String> roles) {
-		if (roles.contains("ROLE_CUSTOMER")) {
-			return true;
-		}
-		return false;
-	}
 	
-	private boolean isSupplier(List<String> roles) {
-		if (roles.contains("ROLE_SUPPLIER")) {
-			return true;
-		}
-		return false;
-	}
-	
-	
-	private boolean isSupplierVerify(List<String> roles) {
-		if (roles.contains("ROLE_SUPPLIER_VERIFY")) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean isWhoVerify(List<String> roles) {
-		if (roles.contains("ROLE_WHOLESALECUSTOMER_VERIFY")) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean isPharmacyVerify(List<String> roles) {
-		if (roles.contains("ROLE_PHARMACY_VERIFY")) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean isDispensingVerify(List<String> roles) {
-		if (roles.contains("ROLE_DISPENSINGDOCTOR_VERIFY")) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean isPending(List<String> roles) {
-		if (roles.contains("ROLE_PENDING")) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean isManufacturer(List<String> roles) {
-		if (roles.contains("ROLE_MANUFACTURER")) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean isManufacturerVerify(List<String> roles) {
-		if (roles.contains("ROLE_MANUFACTURER_VERIFY")) {
-			return true;
-		}
-		return false;
-	}
 	
 }
