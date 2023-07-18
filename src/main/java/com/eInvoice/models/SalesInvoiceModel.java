@@ -15,6 +15,7 @@ public class SalesInvoiceModel implements Serializable {
 	private int OthChrg;
 	private int RndOffAmt;
 	private String SalesInvoiceType;
+	private String CustGSTNo;
 
 	public Integer getSalesInvoiceId() {
 		return SalesInvoiceId;
@@ -88,12 +89,20 @@ public class SalesInvoiceModel implements Serializable {
 		SalesInvoiceType = salesInvoiceType;
 	}
 
+	public String getCustGSTNo() {
+		return CustGSTNo;
+	}
+
+	public void setCustGSTNo(String custGSTNo) {
+		CustGSTNo = custGSTNo;
+	}
+
 	@Override
 	public String toString() {
 		return "SalesInvoiceModel [SalesInvoiceId=" + SalesInvoiceId + ", SalesInvoiceNo=" + SalesInvoiceNo
 				+ ", SalesInvoiceDate=" + SalesInvoiceDate + ", Total=" + Total + ", CustId=" + CustId + ", CustFName="
 				+ CustFName + ", OthChrg=" + OthChrg + ", RndOffAmt=" + RndOffAmt + ", SalesInvoiceType="
-				+ SalesInvoiceType + "]";
+				+ SalesInvoiceType + ", CustGSTNo=" + CustGSTNo + "]";
 	}
 
 }

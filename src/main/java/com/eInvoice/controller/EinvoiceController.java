@@ -28,15 +28,14 @@ public class EinvoiceController {
 	
 	@GetMapping("/getPendingInvoiceList")
 	@ResponseBody
-	public DataTableDTO getPendingInvoiceList(Integer start, Integer length, Integer draw, @RequestParam(name = "search[value]", required = false, defaultValue = "") String searchQuery){
+	public DataTableDTO getPendingInvoiceList(Integer start, Integer length, Integer draw, @RequestParam(name = "search[value]", required = false, defaultValue = "") String searchQuery,String startDate,String endDate){
 		
 		try {
-			
 			int startIndex =  start == null ? 0 : start;
 			int endIndex = length == null ? 20 : length;
 			int drawLen = draw == null ? 0 : draw;
 			
-			return DataTableDTO.toDataTable(eInvoiceservice.getPendingInvoiceList(startIndex, endIndex, searchQuery), drawLen, startIndex);
+			return DataTableDTO.toDataTable(eInvoiceservice.getPendingInvoiceList(startIndex, endIndex, searchQuery,startDate,endDate), drawLen, startIndex);
 		} catch (Exception e) {
 			log.error("Exception Occured in getPendingInvoiceList : ", e);
 			e.printStackTrace();
