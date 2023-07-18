@@ -16,6 +16,7 @@
     <link href="${pageContext.request.contextPath}/app-assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link  href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/app-assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
@@ -48,7 +49,13 @@
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm ml-2"><i
                                 class="fas fa-download fa-sm text-white-50"></i>Prepare JSON</a>
                     </div> -->
+                    <div class="row">
+	                    <div class="form-group col-4">
+	                        <input type="text" class="form-control form-control-user" id="fromDate" placeholder="From Date">
+	                    </div>
+	                 </div>
                     <div class="card shadow mb-4" id="pendingInvoiceDiv">
+                    	
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Pending Invoice</h6>
                         </div>
@@ -117,9 +124,10 @@
     <script src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/app-assets/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="${pageContext.request.contextPath}/app-assets/js/sb-admin-2.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+   	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="${pageContext.request.contextPath}/app-assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/app-assets/js/demo/datatables-demo.js"></script>
     <script src="${pageContext.request.contextPath}/script/pendingInvoice.js"></script>
 
 </body>

@@ -1,6 +1,6 @@
 $('document').ready(function() {
 
-	getPendingInvoiceList();
+	getPendingInvoiceList('','');
 
 	$(document).on('shown.bs.modal', '#invoiceDetailsModal', function() {
 		//      $('#invoiceDataTable').DataTable().ajax.reload();
@@ -13,14 +13,21 @@ $('document').ready(function() {
 		$('#pendingInvoiceLineDiv').show();
 		getPendingInvoiceDetails(data.salesInvoiceId,data.salesInvoiceNo);
 	});
+	
+	$('#fromDate').daterangepicker({ locale: {
+          format: 'DD/MM/YYYY'
+     }});
 
+	 $('#fromDate').on('apply.daterangepicker', function(ev, picker) {
+	      getPendingInvoiceList(picker.startDate.format('DD/MM/YYYY'),picker.endDate.format('DD/MM/YYYY'));
+	  });
 });
 
 function closeInvoiceDetailsDiv(){
 	$('#pendingInvoiceDiv').show();
 	$('#pendingInvoiceLineDiv').hide();
 }
-function getPendingInvoiceList() {
+function getPendingInvoiceList(startDate,endDate) {
 	$('#invoiceDataTable').DataTable({
 		ordering: false,
 		destroy: true,
@@ -33,25 +40,21 @@ function getPendingInvoiceList() {
 		deferRender: true,
 		responsive: true,
 		async: true,
-		//		lengthMenu: [5, 10, 25, 50],
 		ajax: {
 			url: 'getPendingInvoiceList',
+			data:{
+				"startDate":startDate,
+				"endDate":endDate
+			}
 		},
 		columns: [
 			{ title: 'Invoice No', data: 'salesInvoiceNo' },
 			{ title: 'Invoice Type', data: 'salesInvoiceType' },
 			{ title: 'Invoice Date', data: 'salesInvoiceDate' },
 			{ title: 'Customer Name', data: 'custFName' },
+			{ title: 'Customer GST No', data: 'custGSTNo' },
 			{ title: 'Invoice Amount', data: 'total' },
-		],
-		fixedColumns: {
-			rightColumns: 1,
-			leftColumns: 0
-		}, createdRow: function(row, data, dataIndex) {
-			//			if (data.status == 'New')  {
-			//				$('td', row).addClass('dataTableColorClass');
-			//			}
-		}
+		]
 	});
 }
 

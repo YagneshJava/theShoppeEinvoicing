@@ -15,9 +15,9 @@ public class BuyerDtls {
 	@JsonProperty("Pos")
 	private String Pos;
 	@JsonProperty("Addr1")
-	private String Addr1;
+	private String Addrone;
 	@JsonProperty("Addr2")
-	private String Addr2;
+	private String Addrtwo;
 	@JsonProperty("Loc")
 	private String Loc;
 	@JsonProperty("Pin")
@@ -61,20 +61,20 @@ public class BuyerDtls {
 		Pos = pos;
 	}
 
-	public String getAddr1() {
-		return Addr1;
+	public String getAddrone() {
+		return Addrone;
 	}
 
-	public void setAddr1(String addr1) {
-		Addr1 = addr1;
+	public void setAddrone(String addrone) {
+		Addrone = addrone;
 	}
 
-	public String getAddr2() {
-		return Addr2;
+	public String getAddrtwo() {
+		return Addrtwo;
 	}
 
-	public void setAddr2(String addr2) {
-		Addr2 = addr2;
+	public void setAddrtwo(String addrtwo) {
+		Addrtwo = addrtwo;
 	}
 
 	public String getLoc() {
@@ -115,6 +115,13 @@ public class BuyerDtls {
 
 	public void setEm(String em) {
 		Em = em;
+	}
+
+	@Override
+	public String toString() {
+		return "BuyerDtls [Gstin=" + Gstin + ", LglNm=" + LglNm + ", TrdNm=" + TrdNm + ", Pos=" + Pos + ", Addrone="
+				+ Addrone + ", Addrtwo=" + Addrtwo + ", Loc=" + Loc + ", Pin=" + Pin + ", Stcd=" + Stcd + ", Ph=" + Ph
+				+ ", Em=" + Em + "]";
 	}
 
 }
