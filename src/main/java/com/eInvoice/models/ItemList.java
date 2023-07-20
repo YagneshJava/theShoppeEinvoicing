@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE, creatorVisibility=JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE, creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public class ItemList {
 
 	@JsonProperty("SlNo")
@@ -24,37 +24,37 @@ public class ItemList {
 	@JsonProperty("Unit")
 	private String Unit;
 	@JsonProperty("UnitPrice")
-	private int UnitPrice;
+	private double UnitPrice;
 	@JsonProperty("TotAmt")
-	private int TotAmt;
+	private double TotAmt;
 	@JsonProperty("Discount")
-	private int Discount;
+	private double Discount;
 	@JsonProperty("PreTaxVal")
-	private int PreTaxVal;
+	private double PreTaxVal;
 	@JsonProperty("AssAmt")
-	private int AssAmt;
+	private double AssAmt;
 	@JsonProperty("GstRt")
 	private int GstRt;
 	@JsonProperty("IgstAmt")
-	private int IgstAmt;
+	private double IgstAmt;
 	@JsonProperty("CgstAmt")
-	private int CgstAmt;
+	private double CgstAmt;
 	@JsonProperty("SgstAmt")
-	private int SgstAmt;
+	private double SgstAmt;
 	@JsonProperty("CesRt")
-	private int CesRt;
+	private double CesRt;
 	@JsonProperty("CesAmt")
-	private int CesAmt;
+	private double CesAmt;
 	@JsonProperty("CesNonAdvlAmt")
-	private int CesNonAdvlAmt;
+	private double CesNonAdvlAmt;
 	@JsonProperty("StateCesRt")
-	private int StateCesRt;
+	private double StateCesRt;
 	@JsonProperty("StateCesAmt")
-	private int StateCesAmt;
+	private double StateCesAmt;
 	@JsonProperty("StateCesNonAdvlAmt")
-	private int StateCesNonAdvlAmt;
+	private double StateCesNonAdvlAmt;
 	@JsonProperty("OthChrg")
-	private int OthChrg;
+	private double OthChrg;
 	@JsonProperty("TotItemVal")
 	private int TotItemVal;
 	@JsonProperty("BchDtls")
@@ -126,43 +126,43 @@ public class ItemList {
 		Unit = unit;
 	}
 
-	public int getUnitPrice() {
+	public double getUnitPrice() {
 		return UnitPrice;
 	}
 
-	public void setUnitPrice(int unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		UnitPrice = unitPrice;
 	}
 
-	public int getTotAmt() {
+	public double getTotAmt() {
 		return TotAmt;
 	}
 
-	public void setTotAmt(int totAmt) {
+	public void setTotAmt(double totAmt) {
 		TotAmt = totAmt;
 	}
 
-	public int getDiscount() {
+	public double getDiscount() {
 		return Discount;
 	}
 
-	public void setDiscount(int discount) {
+	public void setDiscount(double discount) {
 		Discount = discount;
 	}
 
-	public int getPreTaxVal() {
+	public double getPreTaxVal() {
 		return PreTaxVal;
 	}
 
-	public void setPreTaxVal(int preTaxVal) {
+	public void setPreTaxVal(double preTaxVal) {
 		PreTaxVal = preTaxVal;
 	}
 
-	public int getAssAmt() {
+	public double getAssAmt() {
 		return AssAmt;
 	}
 
-	public void setAssAmt(int assAmt) {
+	public void setAssAmt(double assAmt) {
 		AssAmt = assAmt;
 	}
 
@@ -174,83 +174,83 @@ public class ItemList {
 		GstRt = gstRt;
 	}
 
-	public int getIgstAmt() {
+	public double getIgstAmt() {
 		return IgstAmt;
 	}
 
-	public void setIgstAmt(int igstAmt) {
+	public void setIgstAmt(double igstAmt) {
 		IgstAmt = igstAmt;
 	}
 
-	public int getCgstAmt() {
+	public double getCgstAmt() {
 		return CgstAmt;
 	}
 
-	public void setCgstAmt(int cgstAmt) {
+	public void setCgstAmt(double cgstAmt) {
 		CgstAmt = cgstAmt;
 	}
 
-	public int getSgstAmt() {
+	public double getSgstAmt() {
 		return SgstAmt;
 	}
 
-	public void setSgstAmt(int sgstAmt) {
+	public void setSgstAmt(double sgstAmt) {
 		SgstAmt = sgstAmt;
 	}
 
-	public int getCesRt() {
+	public double getCesRt() {
 		return CesRt;
 	}
 
-	public void setCesRt(int cesRt) {
+	public void setCesRt(double cesRt) {
 		CesRt = cesRt;
 	}
 
-	public int getCesAmt() {
+	public double getCesAmt() {
 		return CesAmt;
 	}
 
-	public void setCesAmt(int cesAmt) {
+	public void setCesAmt(double cesAmt) {
 		CesAmt = cesAmt;
 	}
 
-	public int getCesNonAdvlAmt() {
+	public double getCesNonAdvlAmt() {
 		return CesNonAdvlAmt;
 	}
 
-	public void setCesNonAdvlAmt(int cesNonAdvlAmt) {
+	public void setCesNonAdvlAmt(double cesNonAdvlAmt) {
 		CesNonAdvlAmt = cesNonAdvlAmt;
 	}
 
-	public int getStateCesRt() {
+	public double getStateCesRt() {
 		return StateCesRt;
 	}
 
-	public void setStateCesRt(int stateCesRt) {
+	public void setStateCesRt(double stateCesRt) {
 		StateCesRt = stateCesRt;
 	}
 
-	public int getStateCesAmt() {
+	public double getStateCesAmt() {
 		return StateCesAmt;
 	}
 
-	public void setStateCesAmt(int stateCesAmt) {
+	public void setStateCesAmt(double stateCesAmt) {
 		StateCesAmt = stateCesAmt;
 	}
 
-	public int getStateCesNonAdvlAmt() {
+	public double getStateCesNonAdvlAmt() {
 		return StateCesNonAdvlAmt;
 	}
 
-	public void setStateCesNonAdvlAmt(int stateCesNonAdvlAmt) {
+	public void setStateCesNonAdvlAmt(double stateCesNonAdvlAmt) {
 		StateCesNonAdvlAmt = stateCesNonAdvlAmt;
 	}
 
-	public int getOthChrg() {
+	public double getOthChrg() {
 		return OthChrg;
 	}
 
-	public void setOthChrg(int othChrg) {
+	public void setOthChrg(double othChrg) {
 		OthChrg = othChrg;
 	}
 
@@ -276,6 +276,18 @@ public class ItemList {
 
 	public void setAttribDtls(AttribDtls attribDtls) {
 		AttribDtls = attribDtls;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemList [SlNo=" + SlNo + ", PrdDesc=" + PrdDesc + ", IsServc=" + IsServc + ", HsnCd=" + HsnCd
+				+ ", Barcde=" + Barcde + ", Qty=" + Qty + ", FreeQty=" + FreeQty + ", Unit=" + Unit + ", UnitPrice="
+				+ UnitPrice + ", TotAmt=" + TotAmt + ", Discount=" + Discount + ", PreTaxVal=" + PreTaxVal + ", AssAmt="
+				+ AssAmt + ", GstRt=" + GstRt + ", IgstAmt=" + IgstAmt + ", CgstAmt=" + CgstAmt + ", SgstAmt=" + SgstAmt
+				+ ", CesRt=" + CesRt + ", CesAmt=" + CesAmt + ", CesNonAdvlAmt=" + CesNonAdvlAmt + ", StateCesRt="
+				+ StateCesRt + ", StateCesAmt=" + StateCesAmt + ", StateCesNonAdvlAmt=" + StateCesNonAdvlAmt
+				+ ", OthChrg=" + OthChrg + ", TotItemVal=" + TotItemVal + ", BchDtls=" + BchDtls + ", AttribDtls="
+				+ AttribDtls + "]";
 	}
 
 }

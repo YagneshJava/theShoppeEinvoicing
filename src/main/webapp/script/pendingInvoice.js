@@ -48,13 +48,25 @@ function getPendingInvoiceList(startDate,endDate) {
 			}
 		},
 		columns: [
+			{
+				targets: 0,
+				data: null,
+				defaultContent: '',
+				orderable: false,
+				className: 'select-checkbox'
+			},
 			{ title: 'Invoice No', data: 'salesInvoiceNo' },
 			{ title: 'Invoice Type', data: 'salesInvoiceType' },
 			{ title: 'Invoice Date', data: 'salesInvoiceDate' },
 			{ title: 'Customer Name', data: 'custFName' },
 			{ title: 'Customer GST No', data: 'custGSTNo' },
 			{ title: 'Invoice Amount', data: 'total' },
-		]
+		], 
+//		select: {
+//        style: 'os',
+//        selector: 'td:first-child'
+//    },
+//    order: [[1, 'asc']]
 	});
 }
 
