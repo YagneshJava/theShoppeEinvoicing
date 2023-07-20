@@ -94,6 +94,12 @@ public class EinvoiceService {
 			item.setIsServc(item.getIsServc().equals("0") ? "N" : "Y");
 			item.setHsnCd(item.getHsnCd().trim()) ;
 		});
+		
+		if(buyerDetail != null &&  (buyerDetail.getAddrone() == null || buyerDetail.getAddrone().isEmpty())) {
+			buyerDetail.setAddrone(buyerDetail.getCustaddress());
+			buyerDetail.setAddrtwo(buyerDetail.getCustaddress());
+		}
+		
 		List<Root> rootList = new ArrayList<Root>();
 		Root root = new Root();
 		root.setItemList(itemList);

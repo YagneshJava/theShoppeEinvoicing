@@ -3,6 +3,7 @@ package com.eInvoice.models;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE, creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public class BuyerDtls {
@@ -28,6 +29,8 @@ public class BuyerDtls {
 	private String Ph;
 	@JsonProperty("Em")
 	private String Em;
+	@JsonIgnore
+	private String custaddress;
 
 	public String getGstin() {
 		return Gstin;
@@ -117,11 +120,19 @@ public class BuyerDtls {
 		Em = em;
 	}
 
+	public String getCustaddress() {
+		return custaddress;
+	}
+
+	public void setCustaddress(String custaddress) {
+		this.custaddress = custaddress;
+	}
+
 	@Override
 	public String toString() {
 		return "BuyerDtls [Gstin=" + Gstin + ", LglNm=" + LglNm + ", TrdNm=" + TrdNm + ", Pos=" + Pos + ", Addrone="
 				+ Addrone + ", Addrtwo=" + Addrtwo + ", Loc=" + Loc + ", Pin=" + Pin + ", Stcd=" + Stcd + ", Ph=" + Ph
-				+ ", Em=" + Em + "]";
+				+ ", Em=" + Em + ", custaddress=" + custaddress + "]";
 	}
 
 }
