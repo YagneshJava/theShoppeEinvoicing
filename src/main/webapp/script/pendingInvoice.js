@@ -1,5 +1,6 @@
 var table;
 var rows_selected = [];
+var selectedInvoiceNo = [];
 
 $('document').ready(function() {
 
@@ -34,6 +35,7 @@ $('document').ready(function() {
 
 	$('#fromDate').on('apply.daterangepicker', function(ev, picker) {
 		rows_selected = [];
+		selectedInvoiceNo = [];
 		getPendingInvoiceList(picker.startDate.format('DD/MM/YYYY'), picker.endDate.format('DD/MM/YYYY'));
 
 		$('#select-all').on('click', function(e) {
@@ -64,10 +66,11 @@ $('document').ready(function() {
 		// If checkbox is checked and row ID is not in list of selected row IDs
 		if (this.checked && index === -1) {
 			rows_selected.push(rowId);
-
+			selectedInvoiceNo.push(data.salesInvoiceNo);
 			// Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
 		} else if (!this.checked && index !== -1) {
 			rows_selected.splice(index, 1);
+			selectedInvoiceNo.splice(index, 1);
 		}
 
 		if (this.checked) {
@@ -248,9 +251,26 @@ function downloadMultipleJson() {
 		alert('Kindly select atleat one invoice to download!');
 		return;
 	}
-
-	jQuery('<form action="downloadMultipleJson" method="POST" target="_blank">'
-		+ '<input type="text" name="invoiceId[]" value="' + rows_selected + '">'
-		+ '</form>').appendTo('body').submit().remove();
+		$.ajax({
+			url: 'validatePendingInvoiceList',
+			type: "POST",
+			async:false,
+			data: {
+				"invoiceId[]": rows_selected,
+			},
+			success:function(data){
+				if(data !== 'Done'){
+					alert(data);
+				}else{
+					jQuery('<form action="getPrepareJsonFileInvoice" method="GET" target="_blank">'
+					+ '<input type="text" name="invoiceId[]" value="' + rows_selected + '">'
+					+ '<input type="text" name="invoiceNo[]" value="' + selectedInvoiceNo + '">'
+					+ '</form>').appendTo('body').submit().remove();
+				}
+			},error:function(data){
+				alert(data.responseText);
+			}
+		});
+	
 
 }
