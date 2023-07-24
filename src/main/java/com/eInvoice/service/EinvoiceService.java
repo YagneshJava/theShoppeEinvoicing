@@ -67,7 +67,7 @@ public class EinvoiceService {
 		}
 	}
 
-	public byte[] getPrepareJsonFileInvoice(String invoiceId) throws JsonProcessingException, SQLException {
+	public byte[] getPrepareJsonFileInvoice(String invoiceId) throws Exception {
 		SalesInvoiceModel invoice = eInvoiceRepo.getTranDtlsAndDocDetails(invoiceId);
 		BuyerDtls buyerDetail = eInvoiceRepo.getCustomerDetails(invoice.getCustId());
 		System.out.println(buyerDetail);
@@ -99,7 +99,13 @@ public class EinvoiceService {
 			buyerDetail.setAddrone(buyerDetail.getCustaddress());
 			buyerDetail.setAddrtwo(buyerDetail.getCustaddress());
 		}
-		
+		if (null == buyerDetail.getAddrone() || buyerDetail.getAddrone().trim().equals("")) {
+			throw new Exception("Address is not available kindly add it.");
+		} else if (null == buyerDetail.getLoc() || buyerDetail.getLoc().trim().equals("")) {
+			throw new Exception("Location is not available kindly add it.");
+		} else if (null == buyerDetail.getStcd() || buyerDetail.getStcd().trim().equals("")) {
+			throw new Exception("State code is not available kindly add it.");
+		}
 		List<Root> rootList = new ArrayList<Root>();
 		Root root = new Root();
 		root.setItemList(itemList);

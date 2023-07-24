@@ -56,7 +56,7 @@ public class ItemList {
 	@JsonProperty("OthChrg")
 	private double OthChrg;
 	@JsonProperty("TotItemVal")
-	private int TotItemVal;
+	private double TotItemVal;
 	@JsonProperty("BchDtls")
 	private BchDtls BchDtls;
 	@JsonProperty("AttribDtls")
@@ -254,11 +254,11 @@ public class ItemList {
 		OthChrg = othChrg;
 	}
 
-	public int getTotItemVal() {
+	public double getTotItemVal() {
 		return TotItemVal;
 	}
 
-	public void setTotItemVal(int totItemVal) {
+	public void setTotItemVal(double totItemVal) {
 		TotItemVal = totItemVal;
 	}
 
