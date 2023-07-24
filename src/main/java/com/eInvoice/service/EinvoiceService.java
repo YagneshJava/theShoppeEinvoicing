@@ -68,6 +68,8 @@ public class EinvoiceService {
 	}
 
 	public byte[] getPrepareJsonFileInvoice(String invoiceId) throws Exception {
+		
+		
 		SalesInvoiceModel invoice = eInvoiceRepo.getTranDtlsAndDocDetails(invoiceId);
 		BuyerDtls buyerDetail = eInvoiceRepo.getCustomerDetails(invoice.getCustId());
 		System.out.println(buyerDetail);

@@ -1,12 +1,16 @@
 package com.eInvoice.controller;
 
-import java.io.ByteArrayInputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,19 +67,29 @@ public class EinvoiceController {
 	}
 	
 	@GetMapping("/getPrepareJsonFileInvoice")
-	@ResponseBody
-	public ResponseEntity<?> getPrepareJsonFileInvoice(@RequestParam(name = "salesInvoiceId", required = true) String invoiceId,@RequestParam(name = "salesInvoiceNo", required = true) String invoiceNo){
+	public ResponseEntity<?> getPrepareJsonFileInvoice(HttpServletResponse resp, @RequestParam(name = "salesInvoiceId", required = true) String invoiceId,@RequestParam(name = "salesInvoiceNo", required = true) String invoiceNo ) throws Exception{
 		try {
 			
-			byte[] buf = eInvoiceservice.getPrepareJsonFileInvoice(invoiceId);
-
-			return ResponseEntity
-			        .ok()
-			        .contentLength(buf.length)
-			        .contentType(
-			                MediaType.parseMediaType("application/octet-stream"))
-			        .header("Content-Disposition", "attachment; filename="+invoiceNo+".json")
-			        .body(new InputStreamResource(new ByteArrayInputStream(buf)));
+			
+			
+			List<String> invoiceList = new ArrayList<String>();
+			invoiceList.add(invoiceId);
+			
+			OutputStream out  =  resp.getOutputStream();
+				ZipOutputStream zos = new ZipOutputStream(out);
+				for(String invoiceId1  : invoiceList) {
+					zos.putNextEntry(new ZipEntry(invoiceNo+".json"));
+					zos.write(eInvoiceservice.getPrepareJsonFileInvoice(invoiceId1));
+	   				zos.closeEntry();
+				}
+				resp.setContentType("application/zip;charset=UTF-8");
+				resp.setHeader("Content-Disposition", "attachment; filename=eInvoice.zip");
+				zos.flush();
+				zos.close();
+				out.close();
+			
+			return ResponseEntity.ok(resp);
+			
 		} catch (Exception e) {
 			log.error("Exception Occured in getPendingInvoiceList : ", e);
 			e.printStackTrace();
