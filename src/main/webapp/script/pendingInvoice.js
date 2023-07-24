@@ -6,13 +6,34 @@ $('document').ready(function() {
 		//      $('#invoiceDataTable').DataTable().ajax.reload();
 		$(this).trigger('resize')
 	});
-	var table = $('#invoiceDataTable').DataTable();
-	table.on('click', 'tbody tr', function() {
-		var data = table.row(this).data();
-		$('#pendingInvoiceDiv').hide();
-		$('#pendingInvoiceLineDiv').show();
-		getPendingInvoiceDetails(data.salesInvoiceId,data.salesInvoiceNo);
-	});
+	$('#select-all').on('click', function(){
+      // Check/uncheck all checkboxes in the table
+      var rows = table.rows({ 'search': 'applied' }).nodes();
+      $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   });
+   
+//	var table = $('#invoiceDataTable').DataTable();
+//	table.on('click', 'tbody tr', function() {
+//		var data = table.row(this).data();
+//		$('#pendingInvoiceDiv').hide();
+//		$('#pendingInvoiceLineDiv').show();
+//		getPendingInvoiceDetails(data.salesInvoiceId,data.salesInvoiceNo);
+//	});
+
+
+$('#invoiceDataTable tbody').on('change', 'input[type="checkbox"]', function(){
+      // If checkbox is not checked
+      if(!this.checked){
+         var el = $('#select-all').get(0);
+         // If "Select all" control is checked and has 'indeterminate' property
+         if(el && el.checked && ('indeterminate' in el)){
+            // Set visual state of "Select all" control 
+            // as 'indeterminate'
+            el.indeterminate = true;
+         }
+      }
+   });
+    
 	
 	$('#fromDate').daterangepicker({ locale: {
           format: 'DD/MM/YYYY'
@@ -47,14 +68,31 @@ function getPendingInvoiceList(startDate,endDate) {
 				"endDate":endDate
 			}
 		},
+	
 		columns: [
-			{ title: 'Invoice No', data: 'salesInvoiceNo' },
-			{ title: 'Invoice Type', data: 'salesInvoiceType' },
-			{ title: 'Invoice Date', data: 'salesInvoiceDate' },
-			{ title: 'Customer Name', data: 'custFName' },
-			{ title: 'Customer GST No', data: 'custGSTNo' },
-			{ title: 'Invoice Amount', data: 'total' },
-		]
+			{ data: '' },
+			{ data: 'salesInvoiceNo' },
+			{ data: 'salesInvoiceType' },
+			{ data: 'salesInvoiceDate' },
+			{ data: 'custFName' },
+			{ data: 'custGSTNo' },
+			{ data: 'total' },
+		], 
+		columnDefs: [
+			{
+				'targets': 0,
+				'searchable': false,
+				'orderable': false,
+				'className': 'dt-body-center',
+				'render': function(data, type, full, meta) {
+					return '<input type="checkbox" name="id[]" value="'
+						+ $('<div/>').text(data).html() + '">';
+				}
+			}],
+		select: {
+        style: 'multi',
+    },
+    order: [[1, 'asc']]
 	});
 }
 

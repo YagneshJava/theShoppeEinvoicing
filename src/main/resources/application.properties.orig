@@ -7,10 +7,12 @@ userId = theshoppe
 password = jaiambe@2010
 
 
+<<<<<<< HEAD
 spring.datasource.url=jdbc:sqlserver://localhost;databaseName=MallManager
+=======
+
+
+spring.datasource.url=jdbc:sqlserver://127.0.0.1:1433;databaseName=MitsMallManager
+>>>>>>> 9db5d3aca3535c557f937b292e568f18cf4c43a8
 spring.datasource.username=sa
 spring.datasource.password=jaiambe@2010
-
-#spring.datasource.url=jdbc:sqlserver://127.0.0.1:1433;databaseName=MitsMallManager
-#spring.datasource.username=sa
-#spring.datasource.password=jaiambe@2010

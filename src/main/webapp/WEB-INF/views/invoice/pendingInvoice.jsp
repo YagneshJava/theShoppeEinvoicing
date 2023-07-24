@@ -61,7 +61,16 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="invoiceDataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered display select" id="invoiceDataTable" width="100%" cellspacing="0">
+                                <tr>
+											<th><input name="select_all" value="1" id="select-all" type="checkbox" /></th>
+											<th>Invoice No</th>
+											<th>Invoice Type</th>
+											<th>Invoice Date</th>
+											<th>Customer Name</th>
+											<th>Customer GST No</th>
+											<th>Invoice Amount</th>
+										</tr>
                                 </table>
                             </div>
                         </div>

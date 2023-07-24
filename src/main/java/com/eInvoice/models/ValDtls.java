@@ -7,100 +7,104 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 @JsonAutoDetect(fieldVisibility = Visibility.ANY, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE, creatorVisibility = JsonAutoDetect.Visibility.NONE)
 public class ValDtls {
 	@JsonProperty("AssVal")
-	private int AssVal;
+	private double AssVal;
 	@JsonProperty("IgstVal")
-	private int IgstVal;
+	private double IgstVal;
 	@JsonProperty("CgstVal")
-	private int CgstVal;
+	private double CgstVal;
 	@JsonProperty("SgstVal")
-	private int SgstVal;
+	private double SgstVal;
 	@JsonProperty("CesVal")
-	private int CesVal;
+	private double CesVal;
 	@JsonProperty("StCesVal")
-	private int StCesVal;
+	private double StCesVal;
 	@JsonProperty("Discount")
-	private int Discount;
+	private double Discount;
 	@JsonProperty("OthChrg")
-	private int OthChrg;
+	private double OthChrg;
 	@JsonProperty("RndOffAmt")
-	private int RndOffAmt;
+	private double RndOffAmt;
 	@JsonProperty("TotInvVal")
-	private int TotInvVal;
+	private double TotInvVal;
 
-	public int getAssVal() {
+	public double getAssVal() {
 		return AssVal;
 	}
 
-	public void setAssVal(int assVal) {
+	public void setAssVal(double assVal) {
 		AssVal = assVal;
 	}
 
-	public int getIgstVal() {
+	public double getIgstVal() {
 		return IgstVal;
 	}
 
-	public void setIgstVal(int igstVal) {
+	public void setIgstVal(double igstVal) {
 		IgstVal = igstVal;
 	}
 
-	public int getCgstVal() {
+	public double getCgstVal() {
 		return CgstVal;
 	}
 
-	public void setCgstVal(int cgstVal) {
+	public void setCgstVal(double cgstVal) {
 		CgstVal = cgstVal;
 	}
 
-	public int getSgstVal() {
+	public double getSgstVal() {
 		return SgstVal;
 	}
 
-	public void setSgstVal(int sgstVal) {
+	public void setSgstVal(double sgstVal) {
 		SgstVal = sgstVal;
 	}
 
-	public int getCesVal() {
+	public double getCesVal() {
 		return CesVal;
 	}
 
-	public void setCesVal(int cesVal) {
+	public void setCesVal(double cesVal) {
 		CesVal = cesVal;
 	}
 
-	public int getStCesVal() {
+	public double getStCesVal() {
 		return StCesVal;
 	}
 
-	public void setStCesVal(int stCesVal) {
+	public void setStCesVal(double stCesVal) {
 		StCesVal = stCesVal;
 	}
 
-	public int getDiscount() {
+	public double getDiscount() {
 		return Discount;
 	}
 
-	public void setDiscount(int discount) {
+	public void setDiscount(double discount) {
 		Discount = discount;
 	}
 
-	public int getOthChrg() {
+	public double getOthChrg() {
 		return OthChrg;
 	}
 
-	public void setOthChrg(int othChrg) {
+	public void setOthChrg(double othChrg) {
 		OthChrg = othChrg;
 	}
 
-	public int getRndOffAmt() {
+	public double getRndOffAmt() {
 		return RndOffAmt;
 	}
 
-	public void setRndOffAmt(int rndOffAmt) {
+	public void setRndOffAmt(double rndOffAmt) {
 		RndOffAmt = rndOffAmt;
 	}
 
-	public int getTotInvVal() {
+	public double getTotInvVal() {
 		return TotInvVal;
+	}
+
+	public void setTotInvVal(double totInvVal) {
+		TotInvVal = totInvVal;
 	}
 
 	@Override
@@ -108,10 +112,6 @@ public class ValDtls {
 		return "ValDtls [AssVal=" + AssVal + ", IgstVal=" + IgstVal + ", CgstVal=" + CgstVal + ", SgstVal=" + SgstVal
 				+ ", CesVal=" + CesVal + ", StCesVal=" + StCesVal + ", Discount=" + Discount + ", OthChrg=" + OthChrg
 				+ ", RndOffAmt=" + RndOffAmt + ", TotInvVal=" + TotInvVal + "]";
-	}
-
-	public void setTotInvVal(int totInvVal) {
-		TotInvVal = totInvVal;
 	}
 
 }
