@@ -1,55 +1,95 @@
+var table;
+var rows_selected = [];
+
 $('document').ready(function() {
 
-	getPendingInvoiceList('','');
+	getPendingInvoiceList('', '');
 
 	$(document).on('shown.bs.modal', '#invoiceDetailsModal', function() {
 		//      $('#invoiceDataTable').DataTable().ajax.reload();
 		$(this).trigger('resize')
 	});
-	$('#select-all').on('click', function(){
-      // Check/uncheck all checkboxes in the table
-      var rows = table.rows({ 'search': 'applied' }).nodes();
-      $('input[type="checkbox"]', rows).prop('checked', this.checked);
-   });
-   
-//	var table = $('#invoiceDataTable').DataTable();
-//	table.on('click', 'tbody tr', function() {
-//		var data = table.row(this).data();
-//		$('#pendingInvoiceDiv').hide();
-//		$('#pendingInvoiceLineDiv').show();
-//		getPendingInvoiceDetails(data.salesInvoiceId,data.salesInvoiceNo);
-//	});
+	$('#select-all').on('click', function(e) {
+		if (this.checked) {
+			$('#invoiceDataTable tbody input[type="checkbox"]:not(:checked)').trigger('click');
+		} else {
+			$('#invoiceDataTable tbody input[type="checkbox"]:checked').trigger('click');
+		}
+
+		e.stopPropagation();
+	});
+
+	// Handle table draw event
+	table.on('draw', function() {
+		// Update state of "Select all" control
+		updateDataTableSelectAllCtrl(table);
+	});
 
 
-$('#invoiceDataTable tbody').on('change', 'input[type="checkbox"]', function(){
-      // If checkbox is not checked
-      if(!this.checked){
-         var el = $('#select-all').get(0);
-         // If "Select all" control is checked and has 'indeterminate' property
-         if(el && el.checked && ('indeterminate' in el)){
-            // Set visual state of "Select all" control 
-            // as 'indeterminate'
-            el.indeterminate = true;
-         }
-      }
-   });
-    
-	
-	$('#fromDate').daterangepicker({ locale: {
-          format: 'DD/MM/YYYY'
-     }});
+	$('#fromDate').daterangepicker({
+		locale: {
+			format: 'DD/MM/YYYY'
+		}
+	});
 
-	 $('#fromDate').on('apply.daterangepicker', function(ev, picker) {
-	      getPendingInvoiceList(picker.startDate.format('DD/MM/YYYY'),picker.endDate.format('DD/MM/YYYY'));
-	  });
+	$('#fromDate').on('apply.daterangepicker', function(ev, picker) {
+		rows_selected = [];
+		getPendingInvoiceList(picker.startDate.format('DD/MM/YYYY'), picker.endDate.format('DD/MM/YYYY'));
+
+		$('#select-all').on('click', function(e) {
+			if (this.checked) {
+				$('#invoiceDataTable tbody input[type="checkbox"]:not(:checked)').trigger('click');
+			} else {
+				$('#invoiceDataTable tbody input[type="checkbox"]:checked').trigger('click');
+			}
+
+			e.stopPropagation();
+		});
+
+	});
+
+
+	$('#invoiceDataTable tbody').on('click', 'input[type="checkbox"]', function(e) {
+		var row = $(this).closest('tr');
+
+		// Get row data
+		var data = table.row(row).data();
+
+		// Get row ID
+		var rowId = data.salesInvoiceId;
+
+		// Determine whether row ID is in the list of selected row IDs 
+		var index = $.inArray(rowId, rows_selected);
+
+		// If checkbox is checked and row ID is not in list of selected row IDs
+		if (this.checked && index === -1) {
+			rows_selected.push(rowId);
+
+			// Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
+		} else if (!this.checked && index !== -1) {
+			rows_selected.splice(index, 1);
+		}
+
+		if (this.checked) {
+			row.addClass('selected');
+		} else {
+			row.removeClass('selected');
+		}
+
+		// Update state of "Select all" control
+		updateDataTableSelectAllCtrl(table);
+
+		// Prevent click event from propagating to parent
+		e.stopPropagation();
+	});
 });
 
-function closeInvoiceDetailsDiv(){
+function closeInvoiceDetailsDiv() {
 	$('#pendingInvoiceDiv').show();
 	$('#pendingInvoiceLineDiv').hide();
 }
-function getPendingInvoiceList(startDate,endDate) {
-	$('#invoiceDataTable').DataTable({
+function getPendingInvoiceList(startDate, endDate) {
+	table = $('#invoiceDataTable').DataTable({
 		ordering: false,
 		destroy: true,
 		searching: true,
@@ -61,25 +101,28 @@ function getPendingInvoiceList(startDate,endDate) {
 		deferRender: true,
 		responsive: true,
 		async: true,
+		//		width:"100%",
 		ajax: {
 			url: 'getPendingInvoiceList',
-			data:{
-				"startDate":startDate,
-				"endDate":endDate
+			data: {
+				"startDate": startDate,
+				"endDate": endDate
 			}
 		},
-	
+
 		columns: [
-			{ data: '' },
-			{ data: 'salesInvoiceNo' },
-			{ data: 'salesInvoiceType' },
-			{ data: 'salesInvoiceDate' },
-			{ data: 'custFName' },
-			{ data: 'custGSTNo' },
-			{ data: 'total' },
-		], 
+			{ title: '<input name="select_all" value="1" id="select-all" type="checkbox"  />' },
+			{ title: 'Invoice No', data: 'salesInvoiceNo' },
+			{ title: 'Invoice Type', data: 'salesInvoiceType' },
+			{ title: 'Invoice Date', data: 'salesInvoiceDate' },
+			{ title: 'Invoice Name', data: 'custFName' },
+			{ title: 'Invoice GST No', data: 'custGSTNo' },
+			{ title: 'Invoice Amount', data: 'total' },
+		],
 		columnDefs: [
 			{
+				'processing': true,
+				'serverSide': true,
 				'targets': 0,
 				'searchable': false,
 				'orderable': false,
@@ -90,9 +133,19 @@ function getPendingInvoiceList(startDate,endDate) {
 				}
 			}],
 		select: {
-        style: 'multi',
-    },
-    order: [[1, 'asc']]
+			style: 'multi',
+		},
+		order: [[1, 'asc']],
+		'rowCallback': function(row, data, dataIndex) {
+			// Get row ID
+			var rowId = data.salesInvoiceId;
+
+			if ($.inArray(rowId, rows_selected) !== -1) {
+				$(row).find('input[type="checkbox"]').prop('checked', true);
+				$(row).addClass('selected');
+			}
+
+		}
 	});
 }
 
@@ -103,16 +156,16 @@ function jsonPrepareFormatter(cellvalue, options, rowObject) {
 
 function downloadJsonByInvoice(salesInvoiceId, salesInvoiceNo) {
 	var link = document.createElement('a');
-	
+
 	document.body.appendChild(link);
 	link.click();
 }
 
 
-function getPendingInvoiceDetails(salesInvoiceId,salesInvoiceNo) {
+function getPendingInvoiceDetails(salesInvoiceId, salesInvoiceNo) {
 	var hrefLink = "getPrepareJsonFileInvoice?salesInvoiceId=" + salesInvoiceId + "&salesInvoiceNo=" + salesInvoiceNo;
-	$("#downloadJSON").attr("href",hrefLink);
-	
+	$("#downloadJSON").attr("href", hrefLink);
+
 	$('#invoiceDetailDataTable').DataTable({
 		ordering: false,
 		destroy: true,
@@ -127,11 +180,11 @@ function getPendingInvoiceDetails(salesInvoiceId,salesInvoiceNo) {
 		async: true,
 		lengthMenu: [5, 10, 25, 50],
 		ajax: {
-			url: 'getPendingInvoiceItemList/'+salesInvoiceId,
+			url: 'getPendingInvoiceItemList/' + salesInvoiceId,
 		},
 		columns: [
 			{ title: 'Product Description', data: 'PrdDesc' },
-			{ title: 'Is Service', data: 'IsServc',render:formattorIsService },
+			{ title: 'Is Service', data: 'IsServc', render: formattorIsService },
 			{ title: 'HSN Code', data: 'HsnCd' },
 			{ title: 'Barcode', data: 'Barcde' },
 			{ title: 'Quantity', data: 'Qty' },
@@ -150,11 +203,54 @@ function getPendingInvoiceDetails(salesInvoiceId,salesInvoiceNo) {
 	});
 }
 
-function formattorIsService(cellvalue, options, rowObject){
-	if(rowObject.IsServc === "1"){
+function formattorIsService(cellvalue, options, rowObject) {
+	if (rowObject.IsServc === "1") {
 		return "Y";
-	}else{
+	} else {
 		return "N";
 	}
 }
 
+
+function updateDataTableSelectAllCtrl(table) {
+	var $table = table.table().node();
+	var $chkbox_all = $('tbody input[type="checkbox"]', $table);
+	var $chkbox_checked = $('tbody input[type="checkbox"]:checked', $table);
+	var chkbox_select_all = $('thead input[name="select_all"]', $table).get(0);
+
+	// If none of the checkboxes are checked
+	if ($chkbox_checked.length === 0) {
+		chkbox_select_all.checked = false;
+		if ('indeterminate' in chkbox_select_all) {
+			chkbox_select_all.indeterminate = false;
+		}
+
+		// If all of the checkboxes are checked
+	} else if ($chkbox_checked.length === $chkbox_all.length) {
+		chkbox_select_all.checked = true;
+		if ('indeterminate' in chkbox_select_all) {
+			chkbox_select_all.indeterminate = false;
+		}
+
+		// If some of the checkboxes are checked
+	} else {
+		chkbox_select_all.checked = true;
+		if ('indeterminate' in chkbox_select_all) {
+			chkbox_select_all.indeterminate = true;
+		}
+	}
+}
+
+
+function downloadMultipleJson() {
+
+	if (rows_selected.length == 0) {
+		alert('Kindly select atleat one invoice to download!');
+		return;
+	}
+
+	jQuery('<form action="downloadMultipleJson" method="POST" target="_blank">'
+		+ '<input type="text" name="invoiceId[]" value="' + rows_selected + '">'
+		+ '</form>').appendTo('body').submit().remove();
+
+}

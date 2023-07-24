@@ -57,20 +57,25 @@
                     <div class="card shadow mb-4" id="pendingInvoiceDiv">
                     	
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Pending Invoice</h6>
+                        <div class="float-right">
+                            <button type="button" class="btn btn-primary d-sm-inline-block" onclick="downloadMultipleJson()">Download</button>
                         </div>
+                            <h6 class="m-0 font-weight-bold text-primary">Pending Invoice</h6>
+                            
+                        </div>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered display select" id="invoiceDataTable" width="100%" cellspacing="0">
-                                <tr>
-											<th><input name="select_all" value="1" id="select-all" type="checkbox" /></th>
-											<th>Invoice No</th>
-											<th>Invoice Type</th>
-											<th>Invoice Date</th>
-											<th>Customer Name</th>
-											<th>Customer GST No</th>
-											<th>Invoice Amount</th>
-										</tr>
+<!--                                 <tr> -->
+<!-- 											<th><input name="select_all" value="1" id="select-all" type="checkbox" /></th> -->
+<!-- 											<th>Invoice No</th> -->
+<!-- 											<th>Invoice Type</th> -->
+<!-- 											<th>Invoice Date</th> -->
+<!-- 											<th>Customer Name</th> -->
+<!-- 											<th>Customer GST No</th> -->
+<!-- 											<th>Invoice Amount</th> -->
+<!-- 										</tr> -->
                                 </table>
                             </div>
                         </div>
@@ -128,6 +133,7 @@
     </div>
   </div>
 </div>
+
 
     <script src="${pageContext.request.contextPath}/app-assets/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/app-assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
