@@ -22,7 +22,7 @@ public class BuyerDtls {
 	@JsonProperty("Loc")
 	private String Loc;
 	@JsonProperty("Pin")
-	private int Pin;
+	private Integer Pin;
 	@JsonProperty("Stcd")
 	private String Stcd;
 	@JsonProperty("Ph")
@@ -88,11 +88,11 @@ public class BuyerDtls {
 		Loc = loc;
 	}
 
-	public int getPin() {
+	public Integer getPin() {
 		return Pin;
 	}
 
-	public void setPin(int pin) {
+	public void setPin(Integer pin) {
 		Pin = pin;
 	}
 

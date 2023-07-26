@@ -13,7 +13,7 @@ public class DispDtls {
 	@JsonProperty("Loc")
 	private String loc;
 	@JsonProperty("Pin")
-	private int pin;
+	private Integer pin;
 	@JsonProperty("Stcd")
 	private String stcd;
 

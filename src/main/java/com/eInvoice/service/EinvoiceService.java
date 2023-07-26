@@ -90,24 +90,73 @@ public class EinvoiceService {
 		
 		
 		ObjectMapper mapper = new ObjectMapper(); 
-		AtomicInteger index = new AtomicInteger();
-		itemList.forEach(item -> {
-			item.setSlNo(index.getAndIncrement()+1+"");
-			item.setIsServc(item.getIsServc().equals("0") ? "N" : "Y");
-			item.setHsnCd(item.getHsnCd().trim()) ;
-		});
 		
 		if(buyerDetail != null &&  (buyerDetail.getAddrone() == null || buyerDetail.getAddrone().isEmpty())) {
 			buyerDetail.setAddrone(buyerDetail.getCustaddress());
 			buyerDetail.setAddrtwo(buyerDetail.getCustaddress());
 		}
-		if (null == buyerDetail.getAddrone() || buyerDetail.getAddrone().trim().equals("")) {
-			throw new Exception("Address is not available kindly add it.");
-		} else if (null == buyerDetail.getLoc() || buyerDetail.getLoc().trim().equals("")) {
-			throw new Exception("Location is not available kindly add it.");
-		} else if (null == buyerDetail.getStcd() || buyerDetail.getStcd().trim().equals("")) {
-			throw new Exception("State code is not available kindly add it.");
+		
+		if(null == docDtls.getNo() || docDtls.getNo().trim().equals("")) {
+			throw new Exception("Invoice number not available for "+invoice.getSalesInvoiceNo());
 		}
+		if(null == docDtls.getDt() || docDtls.getDt().trim().equals("")) {
+			throw new Exception("Invoice date not available for "+invoice.getSalesInvoiceNo());
+		}
+		if (null == buyerDetail.getGstin() || buyerDetail.getGstin().trim().equals("")) {
+			throw new Exception("Buyer's GSTIN is not available for "+invoice.getSalesInvoiceNo());
+		}
+		if (null == buyerDetail.getLglNm() || buyerDetail.getLglNm().trim().equals("")) {
+			throw new Exception("Buyer's legal name is not available for "+invoice.getSalesInvoiceNo());
+		}
+		if (null == buyerDetail.getPos() || buyerDetail.getPos().trim().equals("")) {
+			throw new Exception("Buyer's point of sell(pos) is not available for "+invoice.getSalesInvoiceNo());
+		}
+		if (null == buyerDetail.getAddrone() || buyerDetail.getAddrone().trim().equals("")) {
+			throw new Exception("Buyer's address is not available for "+invoice.getSalesInvoiceNo());
+		}
+		if (null == buyerDetail.getLoc() || buyerDetail.getLoc().trim().equals("")) {
+			throw new Exception("Buyer's location is not available for "+invoice.getSalesInvoiceNo());
+		} 
+		if (null == buyerDetail.getStcd() || buyerDetail.getStcd().trim().equals("")) {
+			throw new Exception("Buyer's state code is not available for "+invoice.getSalesInvoiceNo());
+		}
+		
+		
+		AtomicInteger index = new AtomicInteger();
+		for(ItemList item : itemList) {
+			item.setSlNo(index.getAndIncrement()+1+"");
+			item.setIsServc((item.getIsServc() == null || item.getIsServc().equals("0")) ? "N" : "Y");
+			
+			if(null == item.getHsnCd() || item.getHsnCd().trim().equals("")) {
+				throw new Exception("HSN code not available in SL No "+item.getSlNo()+" for "+invoice.getSalesInvoiceNo());
+			}
+			item.setHsnCd(item.getHsnCd().trim()) ;
+			
+			if(null == item.getUnitPrice()) {
+				throw new Exception("Unit price not available in SL No "+item.getSlNo()+" for "+invoice.getSalesInvoiceNo());
+			}
+			if(null == item.getTotAmt()) {
+				throw new Exception("Total amount not available in SL No "+item.getSlNo()+" for "+invoice.getSalesInvoiceNo());
+			}
+			if(null == item.getAssAmt()) {
+				throw new Exception("Assessable amount not available in SL No "+item.getSlNo()+" for "+invoice.getSalesInvoiceNo());
+			}
+			if(null == item.getGstRt()) {
+				throw new Exception("GST rate not available in SL No "+item.getSlNo()+" for "+invoice.getSalesInvoiceNo());
+			}
+			if(null == item.getTotItemVal()) {
+				throw new Exception("Total item value not available in SL No "+item.getSlNo()+" for "+invoice.getSalesInvoiceNo());
+			}
+		}
+		
+		
+		if(null == valDetls.getAssVal()) {
+			throw new Exception("Total assessable value not available for "+invoice.getSalesInvoiceNo());
+		}
+		if(null == valDetls.getTotInvVal()) {
+			throw new Exception("Total invoice value not available for "+invoice.getSalesInvoiceNo());
+		}
+		
 		List<Root> rootList = new ArrayList<Root>();
 		Root root = new Root();
 		root.setItemList(itemList);

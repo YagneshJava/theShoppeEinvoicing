@@ -16,7 +16,7 @@ public class SellerDtls {
 	@JsonProperty("Loc")
 	private String loc="GOTRI, VADODARA";
 	@JsonProperty("Pin")
-	private int pin=390007;
+	private Integer pin=390007;
 	@JsonProperty("Stcd")
 	private String stcd="24";
 	@JsonProperty("Ph")

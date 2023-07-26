@@ -9,11 +9,11 @@ public class SalesInvoiceModel implements Serializable {
 	private Integer SalesInvoiceId;
 	private String SalesInvoiceNo;
 	private String SalesInvoiceDate;
-	private int Total;
+	private Integer Total;
 	private String CustId;
 	private String CustFName;
-	private int OthChrg;
-	private int RndOffAmt;
+	private Double OthChrg;
+	private Double RndOffAmt;
 	private String SalesInvoiceType;
 	private String CustGSTNo;
 
@@ -41,11 +41,11 @@ public class SalesInvoiceModel implements Serializable {
 		SalesInvoiceDate = salesInvoiceDate;
 	}
 
-	public int getTotal() {
+	public Integer getTotal() {
 		return Total;
 	}
 
-	public void setTotal(int total) {
+	public void setTotal(Integer total) {
 		Total = total;
 	}
 
@@ -65,19 +65,19 @@ public class SalesInvoiceModel implements Serializable {
 		CustFName = custFName;
 	}
 
-	public int getOthChrg() {
+	public Double getOthChrg() {
 		return OthChrg;
 	}
 
-	public void setOthChrg(int othChrg) {
+	public void setOthChrg(Double othChrg) {
 		OthChrg = othChrg;
 	}
 
-	public int getRndOffAmt() {
+	public Double getRndOffAmt() {
 		return RndOffAmt;
 	}
 
-	public void setRndOffAmt(int rndOffAmt) {
+	public void setRndOffAmt(Double rndOffAmt) {
 		RndOffAmt = rndOffAmt;
 	}
 

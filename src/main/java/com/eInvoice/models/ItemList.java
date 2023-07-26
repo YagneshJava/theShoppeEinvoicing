@@ -18,45 +18,45 @@ public class ItemList {
 	@JsonProperty("Barcde")
 	private String Barcde;
 	@JsonProperty("Qty")
-	private int Qty;
+	private Integer Qty;
 	@JsonProperty("FreeQty")
-	private int FreeQty;
+	private Integer FreeQty;
 	@JsonProperty("Unit")
 	private String Unit;
 	@JsonProperty("UnitPrice")
-	private double UnitPrice;
+	private Double UnitPrice;
 	@JsonProperty("TotAmt")
-	private double TotAmt;
+	private Double TotAmt;
 	@JsonProperty("Discount")
-	private double Discount;
+	private Double Discount;
 	@JsonProperty("PreTaxVal")
-	private double PreTaxVal;
+	private Double PreTaxVal;
 	@JsonProperty("AssAmt")
-	private double AssAmt;
+	private Double AssAmt;
 	@JsonProperty("GstRt")
-	private int GstRt;
+	private Integer GstRt;
 	@JsonProperty("IgstAmt")
-	private double IgstAmt;
+	private Double IgstAmt;
 	@JsonProperty("CgstAmt")
-	private double CgstAmt;
+	private Double CgstAmt;
 	@JsonProperty("SgstAmt")
-	private double SgstAmt;
+	private Double SgstAmt;
 	@JsonProperty("CesRt")
-	private double CesRt;
+	private Double CesRt;
 	@JsonProperty("CesAmt")
-	private double CesAmt;
+	private Double CesAmt;
 	@JsonProperty("CesNonAdvlAmt")
-	private double CesNonAdvlAmt;
+	private Double CesNonAdvlAmt;
 	@JsonProperty("StateCesRt")
-	private double StateCesRt;
+	private Double StateCesRt;
 	@JsonProperty("StateCesAmt")
-	private double StateCesAmt;
+	private Double StateCesAmt;
 	@JsonProperty("StateCesNonAdvlAmt")
-	private double StateCesNonAdvlAmt;
+	private Double StateCesNonAdvlAmt;
 	@JsonProperty("OthChrg")
-	private double OthChrg;
+	private Double OthChrg;
 	@JsonProperty("TotItemVal")
-	private double TotItemVal;
+	private Double TotItemVal;
 	@JsonProperty("BchDtls")
 	private BchDtls BchDtls;
 	@JsonProperty("AttribDtls")
@@ -102,19 +102,19 @@ public class ItemList {
 		Barcde = barcde;
 	}
 
-	public int getQty() {
+	public Integer getQty() {
 		return Qty;
 	}
 
-	public void setQty(int qty) {
+	public void setQty(Integer qty) {
 		Qty = qty;
 	}
 
-	public int getFreeQty() {
+	public Integer getFreeQty() {
 		return FreeQty;
 	}
 
-	public void setFreeQty(int freeQty) {
+	public void setFreeQty(Integer freeQty) {
 		FreeQty = freeQty;
 	}
 
@@ -126,139 +126,139 @@ public class ItemList {
 		Unit = unit;
 	}
 
-	public double getUnitPrice() {
+	public Double getUnitPrice() {
 		return UnitPrice;
 	}
 
-	public void setUnitPrice(double unitPrice) {
+	public void setUnitPrice(Double unitPrice) {
 		UnitPrice = unitPrice;
 	}
 
-	public double getTotAmt() {
+	public Double getTotAmt() {
 		return TotAmt;
 	}
 
-	public void setTotAmt(double totAmt) {
+	public void setTotAmt(Double totAmt) {
 		TotAmt = totAmt;
 	}
 
-	public double getDiscount() {
+	public Double getDiscount() {
 		return Discount;
 	}
 
-	public void setDiscount(double discount) {
+	public void setDiscount(Double discount) {
 		Discount = discount;
 	}
 
-	public double getPreTaxVal() {
+	public Double getPreTaxVal() {
 		return PreTaxVal;
 	}
 
-	public void setPreTaxVal(double preTaxVal) {
+	public void setPreTaxVal(Double preTaxVal) {
 		PreTaxVal = preTaxVal;
 	}
 
-	public double getAssAmt() {
+	public Double getAssAmt() {
 		return AssAmt;
 	}
 
-	public void setAssAmt(double assAmt) {
+	public void setAssAmt(Double assAmt) {
 		AssAmt = assAmt;
 	}
 
-	public int getGstRt() {
+	public Integer getGstRt() {
 		return GstRt;
 	}
 
-	public void setGstRt(int gstRt) {
+	public void setGstRt(Integer gstRt) {
 		GstRt = gstRt;
 	}
 
-	public double getIgstAmt() {
+	public Double getIgstAmt() {
 		return IgstAmt;
 	}
 
-	public void setIgstAmt(double igstAmt) {
+	public void setIgstAmt(Double igstAmt) {
 		IgstAmt = igstAmt;
 	}
 
-	public double getCgstAmt() {
+	public Double getCgstAmt() {
 		return CgstAmt;
 	}
 
-	public void setCgstAmt(double cgstAmt) {
+	public void setCgstAmt(Double cgstAmt) {
 		CgstAmt = cgstAmt;
 	}
 
-	public double getSgstAmt() {
+	public Double getSgstAmt() {
 		return SgstAmt;
 	}
 
-	public void setSgstAmt(double sgstAmt) {
+	public void setSgstAmt(Double sgstAmt) {
 		SgstAmt = sgstAmt;
 	}
 
-	public double getCesRt() {
+	public Double getCesRt() {
 		return CesRt;
 	}
 
-	public void setCesRt(double cesRt) {
+	public void setCesRt(Double cesRt) {
 		CesRt = cesRt;
 	}
 
-	public double getCesAmt() {
+	public Double getCesAmt() {
 		return CesAmt;
 	}
 
-	public void setCesAmt(double cesAmt) {
+	public void setCesAmt(Double cesAmt) {
 		CesAmt = cesAmt;
 	}
 
-	public double getCesNonAdvlAmt() {
+	public Double getCesNonAdvlAmt() {
 		return CesNonAdvlAmt;
 	}
 
-	public void setCesNonAdvlAmt(double cesNonAdvlAmt) {
+	public void setCesNonAdvlAmt(Double cesNonAdvlAmt) {
 		CesNonAdvlAmt = cesNonAdvlAmt;
 	}
 
-	public double getStateCesRt() {
+	public Double getStateCesRt() {
 		return StateCesRt;
 	}
 
-	public void setStateCesRt(double stateCesRt) {
+	public void setStateCesRt(Double stateCesRt) {
 		StateCesRt = stateCesRt;
 	}
 
-	public double getStateCesAmt() {
+	public Double getStateCesAmt() {
 		return StateCesAmt;
 	}
 
-	public void setStateCesAmt(double stateCesAmt) {
+	public void setStateCesAmt(Double stateCesAmt) {
 		StateCesAmt = stateCesAmt;
 	}
 
-	public double getStateCesNonAdvlAmt() {
+	public Double getStateCesNonAdvlAmt() {
 		return StateCesNonAdvlAmt;
 	}
 
-	public void setStateCesNonAdvlAmt(double stateCesNonAdvlAmt) {
+	public void setStateCesNonAdvlAmt(Double stateCesNonAdvlAmt) {
 		StateCesNonAdvlAmt = stateCesNonAdvlAmt;
 	}
 
-	public double getOthChrg() {
+	public Double getOthChrg() {
 		return OthChrg;
 	}
 
-	public void setOthChrg(double othChrg) {
+	public void setOthChrg(Double othChrg) {
 		OthChrg = othChrg;
 	}
 
-	public double getTotItemVal() {
+	public Double getTotItemVal() {
 		return TotItemVal;
 	}
 
-	public void setTotItemVal(double totItemVal) {
+	public void setTotItemVal(Double totItemVal) {
 		TotItemVal = totItemVal;
 	}
 
