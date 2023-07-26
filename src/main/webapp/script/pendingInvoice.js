@@ -122,6 +122,11 @@ function getPendingInvoiceList(startDate, endDate) {
 			{ title: 'Invoice GST No', data: 'custGSTNo' },
 			{ title: 'Invoice Amount', data: 'total' },
 		],
+		createdRow: function(row, data, dataIndex) {
+			if (data.downloaded === 'Y') {
+				$(row).addClass('bg-light-danger');
+			}
+		},
 		columnDefs: [
 			{
 				'processing': true,

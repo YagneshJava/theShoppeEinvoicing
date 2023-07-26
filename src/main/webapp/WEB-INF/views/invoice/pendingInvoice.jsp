@@ -18,6 +18,14 @@
     <link href="${pageContext.request.contextPath}/app-assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="${pageContext.request.contextPath}/app-assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    
+    <style type="text/css">
+    
+    .bg-light-danger {
+		  background-color: #f5a2aa !important;
+		}
+		
+    </style>
 
 </head>
 
