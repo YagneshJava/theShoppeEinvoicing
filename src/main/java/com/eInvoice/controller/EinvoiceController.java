@@ -1,17 +1,16 @@
 package com.eInvoice.controller;
 
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,21 +67,20 @@ public class EinvoiceController {
 		return null;
 	}
 	
-	@PostMapping("/getPrepareJsonFileInvoice")
-	public ResponseEntity<?> getPrepareJsonFileInvoice(HttpServletResponse resp, @RequestParam(name = "salesInvoiceId[]") List<String> invoiceList,@RequestParam(name = "salesInvoiceNo", required = false) String invoiceNo ) throws Exception{
+	@GetMapping("/getPrepareJsonFileInvoice")
+	@ResponseBody
+	public ResponseEntity<?> getPrepareJsonFileInvoice(HttpServletResponse resp, @RequestParam(name = "invoiceId[]", required = true) List<String> invoiceList,
+			@RequestParam(name = "invoiceNo[]", required = true) List<String> invoiceNoList ) throws Exception{
 		try {
 			
-			
-			
-//			List<String> invoiceList = new ArrayList<String>();
-//			invoiceList.add(invoiceId);
-			
-			OutputStream out  =  resp.getOutputStream();
+				OutputStream out  =  resp.getOutputStream();
 				ZipOutputStream zos = new ZipOutputStream(out);
-				for(String invoiceId1  : invoiceList) {
-					zos.putNextEntry(new ZipEntry(invoiceId1+".json"));
-					zos.write(eInvoiceservice.getPrepareJsonFileInvoice(invoiceId1));
+				int i = 0;
+				for(String invoiceId  : invoiceList) {
+					zos.putNextEntry(new ZipEntry(invoiceNoList.get(i)+".json"));
+					zos.write(eInvoiceservice.getPrepareJsonFileInvoice(invoiceId));
 	   				zos.closeEntry();
+	   				i++;
 				}
 				resp.setContentType("application/zip;charset=UTF-8");
 				resp.setHeader("Content-Disposition", "attachment; filename=eInvoice.zip");
@@ -90,13 +88,36 @@ public class EinvoiceController {
 				zos.close();
 				out.close();
 			
-			return ResponseEntity.ok(resp);
+				return ResponseEntity
+				        .ok()
+				        .contentType(
+				                MediaType.parseMediaType("application/octet-stream"))
+				        .header("Content-Disposition", "attachment; filename=eInvoice.zip")
+				        .body(resp);
 			
 		} catch (Exception e) {
 			log.error("Exception Occured in getPendingInvoiceList : ", e);
 			e.printStackTrace();
-			return new ResponseEntity<>(ExceptionUtils.getRootCauseMessage(e),HttpStatus.INTERNAL_SERVER_ERROR);
-//			throw new Exception( e.getCause());
+			return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/validatePendingInvoiceList")
+	@ResponseBody
+	public ResponseEntity<?> validatePendingInvoiceList(HttpServletResponse resp, @RequestParam(name = "invoiceId[]", required = true) List<String> invoiceList ) throws Exception{
+		try {
+			
+			for(String invoiceId  : invoiceList) {
+				eInvoiceservice.getPrepareJsonFileInvoice(invoiceId);
+			}
+			return ResponseEntity
+					.ok()
+					.body("Done");
+			
+		} catch (Exception e) {
+			log.error("Exception Occured in getPendingInvoiceList : ", e);
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
