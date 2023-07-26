@@ -169,4 +169,15 @@ public class EinvoiceService {
 		return mapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(rootList);
 	}
 
+	public void saveInvoiceDownloadFlag(String invoiceList) throws Exception{
+
+		try {
+
+			eInvoiceRepo.saveInvoiceDownloadFlag(invoiceList);
+			
+		} finally {
+
+		}
+	}
+
 }
