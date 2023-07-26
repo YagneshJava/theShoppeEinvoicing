@@ -8,6 +8,7 @@ import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -66,19 +68,19 @@ public class EinvoiceController {
 		return null;
 	}
 	
-	@GetMapping("/getPrepareJsonFileInvoice")
-	public ResponseEntity<?> getPrepareJsonFileInvoice(HttpServletResponse resp, @RequestParam(name = "salesInvoiceId", required = true) String invoiceId,@RequestParam(name = "salesInvoiceNo", required = true) String invoiceNo ) throws Exception{
+	@PostMapping("/getPrepareJsonFileInvoice")
+	public ResponseEntity<?> getPrepareJsonFileInvoice(HttpServletResponse resp, @RequestParam(name = "salesInvoiceId[]") List<String> invoiceList,@RequestParam(name = "salesInvoiceNo", required = false) String invoiceNo ) throws Exception{
 		try {
 			
 			
 			
-			List<String> invoiceList = new ArrayList<String>();
-			invoiceList.add(invoiceId);
+//			List<String> invoiceList = new ArrayList<String>();
+//			invoiceList.add(invoiceId);
 			
 			OutputStream out  =  resp.getOutputStream();
 				ZipOutputStream zos = new ZipOutputStream(out);
 				for(String invoiceId1  : invoiceList) {
-					zos.putNextEntry(new ZipEntry(invoiceNo+".json"));
+					zos.putNextEntry(new ZipEntry(invoiceId1+".json"));
 					zos.write(eInvoiceservice.getPrepareJsonFileInvoice(invoiceId1));
 	   				zos.closeEntry();
 				}
@@ -93,7 +95,8 @@ public class EinvoiceController {
 		} catch (Exception e) {
 			log.error("Exception Occured in getPendingInvoiceList : ", e);
 			e.printStackTrace();
-			return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(ExceptionUtils.getRootCauseMessage(e),HttpStatus.INTERNAL_SERVER_ERROR);
+//			throw new Exception( e.getCause());
 		}
 	}
 	

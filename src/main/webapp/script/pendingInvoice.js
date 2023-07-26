@@ -249,8 +249,8 @@ function downloadMultipleJson() {
 		return;
 	}
 
-	jQuery('<form action="downloadMultipleJson" method="POST" target="_blank">'
-		+ '<input type="text" name="invoiceId[]" value="' + rows_selected + '">'
+	jQuery('<form action="getPrepareJsonFileInvoice" method="POST" target="_blank">'
+		+ '<input type="text" name="salesInvoiceId[]" value="' + rows_selected + '">'
 		+ '</form>').appendTo('body').submit().remove();
 
 }
