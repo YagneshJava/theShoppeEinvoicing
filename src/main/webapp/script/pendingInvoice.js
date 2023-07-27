@@ -272,10 +272,14 @@ function downloadMultipleJson() {
 					+ '<input type="text" name="invoiceNo[]" value="' + selectedInvoiceNo + '">'
 					+ '</form>').appendTo('body').submit().remove();
 				}
+				
 			},error:function(data){
 				alert(data.responseText);
 			}
 		});
-	
+//	setTimeout(timeFunc, 3000);
+}
 
+function timeFunc(){
+	$('#invoiceDataTable').DataTable().ajax.reload();
 }

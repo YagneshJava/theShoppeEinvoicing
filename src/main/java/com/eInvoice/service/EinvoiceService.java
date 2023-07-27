@@ -38,17 +38,17 @@ public class EinvoiceService {
 			StringBuilder query = new StringBuilder();
 			if(searchQuery != null && !searchQuery.isEmpty()) {
 				searchQuery = searchQuery.replaceAll(" ", "%").concat("%");
-				query.append(" and (SalesInvoiceNo LIKE '"+searchQuery+"'");
-				query.append(" or CONVERT(VARCHAR,SalesInvoiceDate,103) LIKE '"+searchQuery+"'");
-				query.append(" or SalesInvoiceType LIKE '"+searchQuery+"'");
-				query.append(" or b.CustFName LIKE '"+searchQuery+"' ");
-				query.append(" or c.GSTNo LIKE '"+searchQuery+"' )");
+				query.append(" and (tab.SalesInvoiceNo LIKE '"+searchQuery+"'");
+				query.append(" or CONVERT(VARCHAR,tab.SalesInvoiceDate,103) LIKE '"+searchQuery+"'");
+				query.append(" or tab.SalesInvoiceType LIKE '"+searchQuery+"'");
+				query.append(" or tab.CustFName LIKE '"+searchQuery+"' ");
+				query.append(" or tab.CustGSTNo LIKE '"+searchQuery+"' )");
 			}
 			
 			if(startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
-				query.append(" and SalesInvoiceDate between '" + DateUtil.sqlFormatterDate(startDate) + "' and DATEADD(SECOND,86399,'" + DateUtil.sqlFormatterDate(endDate) + "')");
+				query.append(" and tab.SalesInvoiceDate between '" + DateUtil.sqlFormatterDate(startDate) + "' and DATEADD(SECOND,86399,'" + DateUtil.sqlFormatterDate(endDate) + "')");
 			}
-			
+			 query.append(" and tab.rownum >="+startIndex+" and tab.rownum <="+endIndex);
 			return eInvoiceRepo.getPendingInvoiceList(query.toString(), pageable);
 
 		} finally {
