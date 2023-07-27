@@ -38,7 +38,9 @@ public class EinvoiceRepoImpl implements EinvoiceRepo{
 	public Page<?> getPendingInvoiceList(String searchQuery, Pageable pageable) throws SQLException {
 		try {
 			
-			List<SalesInvoiceModel> pendingEinvoiceList = template.query(env.getProperty("getEinvoicePendingList") + searchQuery +" order by SalesInvoiceDate desc " ,
+			System.out.println(env.getProperty("getEinvoicePendingList") + searchQuery +" and rownum > "+pageable.getOffset()+" AND rownum <= "+(pageable.getOffset()+ pageable.getPageSize()) );
+			
+			List<SalesInvoiceModel> pendingEinvoiceList = template.query(env.getProperty("getEinvoicePendingList") + searchQuery +" ) d  where rownum > "+pageable.getOffset()+" AND rownum <= "+(pageable.getOffset()+ pageable.getPageSize()) ,
 	                BeanPropertyRowMapper.newInstance(SalesInvoiceModel.class));
 			return new PageImpl<SalesInvoiceModel>(pendingEinvoiceList, pageable,
 					template.queryForObject(env.getProperty("getEinvoicePendingListCount") + searchQuery, Integer.class));
@@ -50,7 +52,7 @@ public class EinvoiceRepoImpl implements EinvoiceRepo{
 	@Override
 	public Page<?> getPendingInvoiceItemList(String searchQuery, Pageable pageable,String salesInvoiceId) throws SQLException {
 		try {
-			List<ItemList> pendingEinvoiceList = template.query(env.getProperty("getPendingInvoiceItemList")+" ORDER BY SalesInvoiceItemId ",
+			List<ItemList> pendingEinvoiceList = template.query(env.getProperty("getPendingInvoiceItemList") +" where rownum > "+pageable.getOffset()+" AND rownum <= "+(pageable.getOffset()+ pageable.getPageSize()),
 					BeanPropertyRowMapper.newInstance(ItemList.class),salesInvoiceId);
 			return new PageImpl<ItemList>(pendingEinvoiceList, pageable,
 					template.queryForObject(env.getProperty("getPendingInvoiceItemListCount"), Integer.class,salesInvoiceId));
