@@ -19,6 +19,14 @@ $('document').ready(function() {
 
 		e.stopPropagation();
 	});
+	
+	
+	table.on('dblclick', 'tbody tr', function() {
+		var data = table.row(this).data();
+		$('#pendingInvoiceDiv').hide();
+		$('#pendingInvoiceLineDiv').show();
+		getPendingInvoiceDetails(data.salesInvoiceId,data.salesInvoiceNo);
+	});
 
 	// Handle table draw event
 	table.on('draw', function() {
@@ -36,21 +44,23 @@ $('document').ready(function() {
 	$('#fromDate').on('apply.daterangepicker', function(ev, picker) {
 		rows_selected = [];
 		selectedInvoiceNo = [];
-		getPendingInvoiceList(picker.startDate.format('DD/MM/YYYY'), picker.endDate.format('DD/MM/YYYY'));
-
-		$('#select-all').on('click', function(e) {
-			if (this.checked) {
-				$('#invoiceDataTable tbody input[type="checkbox"]:not(:checked)').trigger('click');
-			} else {
-				$('#invoiceDataTable tbody input[type="checkbox"]:checked').trigger('click');
-			}
-
-			e.stopPropagation();
-		});
+	//	getPendingInvoiceList(picker.startDate.format('DD/MM/YYYY'), picker.endDate.format('DD/MM/YYYY'));
+		
+		
+		table.ajax.url( 
+		    "getPendingInvoiceList?startDate="+ picker.startDate.format('DD/MM/YYYY')+
+			"&endDate="+ picker.endDate.format('DD/MM/YYYY')
+		).load();
 
 	});
-
-
+	
+	$("#fromDate").keyup(function(event){
+	  	if(event.keyCode == 8 || event.keyCode == 46){
+			$("#fromDate").val('');
+			table.ajax.url("getPendingInvoiceList").load();
+		}
+	});
+	
 	$('#invoiceDataTable tbody').on('click', 'input[type="checkbox"]', function(e) {
 		var row = $(this).closest('tr');
 
@@ -171,9 +181,7 @@ function downloadJsonByInvoice(salesInvoiceId, salesInvoiceNo) {
 
 
 function getPendingInvoiceDetails(salesInvoiceId, salesInvoiceNo) {
-	var hrefLink = "getPrepareJsonFileInvoice?salesInvoiceId=" + salesInvoiceId + "&salesInvoiceNo=" + salesInvoiceNo;
-	$("#downloadJSON").attr("href", hrefLink);
-
+	rows_selected.push(salesInvoiceId);
 	$('#invoiceDetailDataTable').DataTable({
 		ordering: false,
 		destroy: true,

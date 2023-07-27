@@ -39,10 +39,9 @@ public class EinvoiceService {
 			if(searchQuery != null && !searchQuery.isEmpty()) {
 				searchQuery = searchQuery.replaceAll(" ", "%").concat("%");
 				query.append(" and (SalesInvoiceNo LIKE '"+searchQuery+"'");
-				query.append(" or CONVERT(VARCHAR,SalesInvoiceDate,103) LIKE '"+searchQuery+"'");
 				query.append(" or SalesInvoiceType LIKE '"+searchQuery+"'");
-				query.append(" or b.CustFName LIKE '"+searchQuery+"' ");
-				query.append(" or c.GSTNo LIKE '"+searchQuery+"' )");
+				query.append(" or CustFName LIKE '"+searchQuery+"' ");
+				query.append(" or GSTNo LIKE '"+searchQuery+"' )");
 			}
 			
 			if(startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {

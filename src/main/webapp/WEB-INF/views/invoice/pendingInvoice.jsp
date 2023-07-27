@@ -93,7 +93,7 @@
                         <div class="card-header py-3 d-sm-flex align-items-end justify-content-between mb-4">
                             <h6 class="font-weight-bold  text-primary">Pending Invoice Details</h6>
                             <div class="d-sm-inline-block">
-	                            <a href="#" target="_blank" id="downloadJSON" class="btn btn-primary ">Download</a>
+	                            <button type="button" onclick="downloadMultipleJson()" id="downloadJSON" class="btn btn-primary">Download</button>
 	         					<button type="button" class="btn btn-danger d-sm-inline-block" data-dismiss="modal" onclick="closeInvoiceDetailsDiv()">Close</button>
          					</div>
                         </div>
@@ -121,26 +121,6 @@
     </div>
     <!-- End of Page Wrapper -->
 
-   <!-- Modal -->
-<div class="modal fade" id="invoiceDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Invoice Details</h5>
-        <div>
-        <a href="#" target="_blank" id="downloadJSON" class="btn btn-primary">Download</a>
-         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-<!--         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!--           <span aria-hidden="true">&times;</span> -->
-<!--         </button> -->
-      </div>
-      <div class="modal-body">
-        
-      </div>
-    </div>
-  </div>
-</div>
 
 
     <script src="${pageContext.request.contextPath}/app-assets/vendor/jquery/jquery.min.js"></script>
