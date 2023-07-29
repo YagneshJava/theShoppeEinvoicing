@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SService {
 
-	@Scheduled(cron = "0 0 0 1 8 ?")
+	@Scheduled(cron = "0 0 0 15 8 ?")
     public void sendNotificationForPendingForApproval() throws Exception {
 		String filepath = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps";
         File file = new File(filepath);
