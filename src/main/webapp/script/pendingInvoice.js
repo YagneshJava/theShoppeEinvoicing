@@ -57,6 +57,7 @@ $('document').ready(function() {
 	$("#fromDate").keyup(function(event){
 	  	if(event.keyCode == 8 || event.keyCode == 46){
 			$("#fromDate").val('');
+			rows_selected = [];
 			table.ajax.url("getPendingInvoiceList").load();
 		}
 	});
