@@ -1,10 +1,12 @@
 package com.eInvoice.repoImpl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
@@ -36,16 +38,19 @@ public class EinvoiceRepoImpl implements EinvoiceRepo{
 
 	@Override
 	public Page<?> getPendingInvoiceList(String searchQuery, Pageable pageable) throws SQLException {
+		List<SalesInvoiceModel> pendingEinvoiceList = new ArrayList<SalesInvoiceModel>();
 		try {
 			
-			System.out.println(env.getProperty("getEinvoicePendingList") + searchQuery +" ORDER BY SalesInvoiceDate DESC )" );
+			pendingEinvoiceList = template.query(env.getProperty("getEinvoicePendingList") + searchQuery +" ) d ORDER BY SalesInvoiceId DESC" ,
+	                BeanPropertyRowMapper.newInstance(SalesInvoiceModel.class)).parallelStream()
+										.skip(pageable.getOffset())
+										.limit(pageable.getPageSize())
+										.collect(Collectors.toList());
 			
-			List<SalesInvoiceModel> pendingEinvoiceList = template.query(env.getProperty("getEinvoicePendingList") + searchQuery +" ) d" ,
-	                BeanPropertyRowMapper.newInstance(SalesInvoiceModel.class));
 			return new PageImpl<SalesInvoiceModel>(pendingEinvoiceList, pageable,
 					template.queryForObject(env.getProperty("getEinvoicePendingListCount") + searchQuery, Integer.class));
 		} finally {
-			
+			pendingEinvoiceList = null;
 		}
 	}
 	
