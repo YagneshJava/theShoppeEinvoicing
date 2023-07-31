@@ -51,6 +51,16 @@ $('document').ready(function() {
 		    "getPendingInvoiceList?startDate="+ picker.startDate.format('DD/MM/YYYY')+
 			"&endDate="+ picker.endDate.format('DD/MM/YYYY')
 		).load();
+		
+		$('#select-all').on('click', function(e) {
+			if (this.checked) {
+				$('#invoiceDataTable tbody input[type="checkbox"]:not(:checked)').trigger('click');
+			} else {
+				$('#invoiceDataTable tbody input[type="checkbox"]:checked').trigger('click');
+			}
+
+			e.stopPropagation();
+		});
 
 	});
 	
@@ -183,6 +193,7 @@ function downloadJsonByInvoice(salesInvoiceId, salesInvoiceNo) {
 
 function getPendingInvoiceDetails(salesInvoiceId, salesInvoiceNo) {
 	rows_selected.push(salesInvoiceId);
+//	selectedInvoiceNo.push(salesInvoiceNo);
 	$('#invoiceDetailDataTable').DataTable({
 		ordering: false,
 		destroy: true,
